@@ -11,9 +11,9 @@ export class AppConfig {
    constructor(){
         this.sassVariables = this.getSassVariables();
         this.config = {
-            name: 'Azimuth',
-            title: 'Admin template based on Angular 4 and Bootstrap 4',
-            version: '1.1.0',
+            name: 'YTODOSEGURO',
+            title: 'Sistema YTODOSEGURO para el manejo interno de los brokers de seguros.',
+            version: 'V0.1',
             colors:{
                 main: this.sassVariables['main-color'],
                 default: this.sassVariables['default-color'],
