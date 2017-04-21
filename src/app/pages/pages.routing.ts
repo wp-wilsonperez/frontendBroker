@@ -10,7 +10,7 @@ export const routes: Routes = [
         path: '', 
         component: PagesComponent,
         children:[
-            { path:'', redirectTo:'dashboard', pathMatch:'full' },
+            { path:'', redirectTo:'blank', pathMatch:'full' },
             { path: 'dashboard', loadChildren: 'app/pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' }  },
             { path: 'maps', loadChildren: 'app/pages/maps/maps.module#MapsModule', data: { breadcrumb: 'Maps' } },
             { path: 'charts', loadChildren: 'app/pages/charting/charting.module#ChartingModule', data: { breadcrumb: 'Charts' } },
