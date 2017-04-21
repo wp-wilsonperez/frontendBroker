@@ -7,14 +7,14 @@
 
                 <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class=" text-left">
                     <div class="form-group">
-                        <input [formControl]="email" class="form-control checking-field" placeholder="Email" type="text">                      
-                        <span class="help-block text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">Email is required</span>                              
-                        <span class="help-block text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('invalidEmail')">Invalid email address</span>
+                        <input [formControl]="email" class="form-control checking-field" placeholder="Correo" type="email">                      
+                        <span class="help-block text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">Correo Obligatorio</span>                              
+                        <span class="help-block text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('invalidEmail')">Correo Incorrecto</span>
                     </div>
                     <div class="form-group">
-                        <input [formControl]="password" class="form-control checking-field" placeholder="Password" type="password">
-                        <span class="help-block text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('required')">Password is required</span>                              
-                        <span class="help-block text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">Password isn't long enough, minimum of 6 characters</span>
+                        <input [formControl]="password" class="form-control checking-field" placeholder="Contraseña" type="password">
+                        <span class="help-block text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('required')">Contraseña Obligatoria</span>                              
+                        <span class="help-block text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">Contraseña incorrecta</span>
                     </div>
                     <div class="form-group">
                         <label class="custom-control custom-checkbox">
@@ -25,7 +25,7 @@
                         <a class="btn btn-link forgot transition pull-right" href="javascript:void(0);">Olvidaste tú Contraseña?</a>                     
                     </div>
                     <div class="form-group">
-                        <button [disabled]="!form.valid" class="btn btn-main btn-block" type="submit">Iniciar Sesión</button>
+                        <button [disabled]="!form.valid" class="btn btn-main btn-block btn-login" type="submit">Iniciar Sesión</button>
                     </div>
                 </form>
             </div>
