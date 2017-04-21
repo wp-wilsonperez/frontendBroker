@@ -5,7 +5,7 @@ import {Component, ViewEncapsulation, ViewChild, HostListener, Input, ElementRef
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./back-top.component.scss'],
   template: `
-    <i #backTop class="fa fa-angle-up back-to-top" title="Back to Top"></i>
+    <i #backTop class="fa fa-angle-up back-to-top" title="Subir"></i>
   `
 })
 export class BackTopComponent {

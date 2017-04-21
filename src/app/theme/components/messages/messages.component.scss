@@ -156,7 +156,7 @@
         background-color: $main-color;
         span {
             float: left;
-            color: rgba($navbar-text-color,0.8);
+            color: rgba($navbar-text-color-hover,0.8);
             letter-spacing: 0.03em;
         }
         a {
@@ -165,7 +165,7 @@
             text-decoration: none;
             color: $sidebar-item-active-bg-color;
             &:hover{
-                color: rgba($navbar-text-color,0.8);
+                color: rgba($navbar-text-color-hover,0.8);
             }
         }
     }
@@ -223,6 +223,7 @@
             font-weight: bold;
             &:hover{
                 opacity: 0.8;
+                color: $navbar-text-color-hover;
             }  
         }
     }
