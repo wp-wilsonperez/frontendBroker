@@ -2,13 +2,12 @@
     <div class="col-12">
         <div widget class="card">
             <div class="card-header">
-                <span>Form Wizard</span>
+                <span> Nuevo Usuario</span>
                 <div class="widget-controls"> 
-                    <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
-                    <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
+            
                     <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
                     <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>                          
-                    <a data-widgster="close" href="#" class="transition"><i class="fa fa-times"></i></a>
+           
                 </div>        
             </div>
             <div class="card-block widget-body">
@@ -26,30 +25,30 @@
                         <h4><i class="fa {{ step.icon }}"></i> {{step.name}}</h4>
                     </div>
                         
-                    <form *ngIf="step.name=='Account Information'" [formGroup]="accountForm" class="row">
+                    <form *ngIf="step.name=='Informacion de Cuenta'" [formGroup]="accountForm" class="row">
                         <div class="form-group col-md-7" [ngClass]="{'has-danger' : step.hasError && accountForm.get('username').hasError('required'), 'has-success' : !accountForm.get('username').hasError('required') }">
-                            <label class="form-control-label">Username</label>
+                            <label class="form-control-label">Usuario</label>
                             <div class="input-group"> 
                                 <div class="input-group-addon"><i class="fa fa-user-o"></i></div>   
                                 <input formControlName="username" class="form-control" [ngClass]="{'form-control-danger' :  accountForm.get('username').hasError('required'), 'form-control-success' :  !accountForm.get('username').hasError('required') }" type="text"> 
                             </div>
-                            <span class="help-block text-danger" *ngIf="step.hasError && accountForm.get('username').hasError('required')">Username is required</span>                             
+                            <span class="help-block text-danger" *ngIf="step.hasError && accountForm.get('username').hasError('required')">Usuario es Necesario</span>                             
                         </div>
 
                         <div class="form-group col-md-7" [ngClass]="{'has-danger' : (step.hasError && accountForm.get('password').hasError('required')) || (step.hasError && accountForm.get('password').hasError('minlength')), 
                                                                      'has-success' : !accountForm.get('password').hasError('required') && !accountForm.get('password').hasError('minlength')}">
-                            <label class="form-control-label">Password</label> 
+                            <label class="form-control-label">Contrasena</label> 
                             <div class="input-group"> 
                                 <div class="input-group-addon"><i class="fa fa-key"></i></div>                       
                                 <input formControlName="password" class="form-control" [ngClass]="{'form-control-danger' : (step.hasError && accountForm.get('password').hasError('required')) || (step.hasError && accountForm.get('password').hasError('minlength')),                                                                                                        'form-control-success' : !accountForm.get('password').hasError('required') && !accountForm.get('password').hasError('minlength')}" type="password">
                             </div>
-                            <span class="help-block text-danger" *ngIf="step.hasError && accountForm.get('password').hasError('required')">Password is required</span>                              
-                            <span class="help-block text-danger" *ngIf="step.hasError && accountForm.get('password').hasError('minlength')">Password isn't long enough, minimum of 6 characters</span>                            
+                            <span class="help-block text-danger" *ngIf="step.hasError && accountForm.get('password').hasError('required')">Contrasena es Necesaria</span>                              
+                            <span class="help-block text-danger" *ngIf="step.hasError && accountForm.get('password').hasError('minlength')">La contrasena debe tener minimo 6 caracteres</span>                            
                         </div>
 
                         <div class="form-group col-md-7" [ngClass]="{'has-danger' : (step.hasError && accountForm.get('confirmPassword').hasError('required')) || (step.hasError && accountForm.get('confirmPassword').hasError('mismatchedPasswords')), 
                                                                      'has-success' : !accountForm.get('confirmPassword').hasError('required') && !accountForm.get('confirmPassword').hasError('mismatchedPasswords')}">
-                            <label class="form-control-label">Confirm Password</label>                              
+                            <label class="form-control-label">Confirmar Contrasena</label>                              
                             <div class="input-group"> 
                                 <div class="input-group-addon"><i class="fa fa-key"></i></div>     
                                 <input formControlName="confirmPassword" class="form-control" [ngClass]="{'form-control-danger' : (step.hasError && accountForm.get('confirmPassword').hasError('required')) || (step.hasError && accountForm.get('confirmPassword').hasError('mismatchedPasswords')), 
@@ -72,7 +71,7 @@
                         </div>
                     </form>
 
-                    <form *ngIf="step.name=='Personal Information'" [formGroup]="personalForm" class="row">
+                    <form *ngIf="step.name=='Informacion Personal'" [formGroup]="personalForm" class="row">
                         <div class="form-group col-md-2">
                             <label class="form-control-label">Salutation</label>
                             <select formControlName="salutation" class="form-control">
@@ -158,7 +157,7 @@
                         </div>                     
                     </form>
 
-                    <form *ngIf="step.name=='Payment Information'" [formGroup]="paymentForm" class="row">
+                    <form *ngIf="step.name=='Roles'" [formGroup]="paymentForm" class="row">
                         <div class="form-group col-md-7" [ngClass]="{'has-danger' : step.hasError && paymentForm.get('cardtype').hasError('required'), 'has-success' : !paymentForm.get('cardtype').hasError('required') }">
                             <label class="form-control-label">Card Type</label>
                             <select formControlName="cardtype" class="form-control" [ngClass]="{'form-control-danger' : step.hasError && paymentForm.get('cardtype').hasError('required'), 'form-control-success' : !paymentForm.get('cardtype').hasError('required') }">
@@ -223,7 +222,7 @@
                     </form>
                    
                     <div *ngIf="step.name=='Confirm Your Details'" class="row">
-                        <div class="col-2"><strong class="text-truncate">Username</strong></div>
+                        <div class="col-2"><strong class="text-truncate">Usuario</strong></div>
                         <div class="col-10"><i>{{details.username}}</i></div>
                         <div class="col-2"><strong class="text-truncate">Full Name</strong></div>
                         <div class="col-10"><i>{{details.fullname}}</i></div>
@@ -249,9 +248,9 @@
 
                 <div class="row"> 
                     <div class="col-12">
-                        <button class="btn btn-primary pull-left" (click)="prev()"><i class="fa fa-chevron-left arrow"></i>&nbsp; Prev Step</button>
-                        <button *ngIf="!steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="next()">Next Step &nbsp;<i class="fa fa-chevron-right arrow"></i></button>
-                        <button *ngIf="steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="confirm()">Confirm &nbsp;<i class="fa fa-check arrow"></i></button>
+                        <button *ngIf="!steps[0].active" class="btn btn-primary pull-left" (click)="prev()"><i class="fa fa-chevron-left arrow"></i>&nbsp; Atras</button>
+                        <button *ngIf="!steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="next()">Siguiente &nbsp;<i class="fa fa-chevron-right arrow"></i></button>
+                        <button *ngIf="steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="confirm()">Confirmar &nbsp;<i class="fa fa-check arrow"></i></button>
                     </div> 
                 </div>         
 

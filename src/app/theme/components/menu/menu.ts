@@ -1,12 +1,35 @@
 export const menuItems = [
   {
-    title: 'Panel de Control',
-    routerLink: 'dashboard',
-    icon: 'fa-home',
+    title: 'Usuarios',
+    routerLink: 'tables',
+    icon: 'fa-user',
     selected: false,
     expanded: false,
-    order: 0
+    order: 0,
+    subMenu: [
+      {
+        title: 'Crear Usuario',
+        routerLink: 'form-elements/wizard',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Listado de Usuarios',
+        routerLink: '',
+         disabled: true,
+        selected: false,
+        expanded: false
+     
+      }
+    ]
   }, 
+  
+  
+  
+];
+
+const menuExamples = [
   {
     title: 'Charts',
     routerLink: 'charts',
