@@ -2,9 +2,7 @@
     <div class="col-xl-4 col-md-6 col-10 offset-xl-4 offset-md-3 offset-1">
         <div class="card">
             <div class="card-block text-center">
-                <h2 class="card-title">Sign in to Azimuth</h2>
-                <a routerLink="/register" class="btn btn-link transition bottom-15">Don't have an account? Sign up now!</a>
-
+                <h2 class="card-title">YTODO SEGURO</h2>
                 <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class=" text-left">
                     <div class="form-group">
                         <input [formControl]="email" class="form-control checking-field" placeholder="Email" type="text">                      
@@ -20,24 +18,14 @@
                         <label class="custom-control custom-checkbox">
                             <input class="custom-control-input checkbox-main" type="checkbox">
                             <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description align-middle">Keep me signed in.</span>
+                            <span class="custom-control-description align-middle">Mantenerme Registrado.</span>
                         </label>
-                        <a class="btn btn-link forgot transition pull-right" href="javascript:void(0);">Forgot password?</a>                     
+                        <a class="btn btn-link forgot transition pull-right" href="javascript:void(0);">Olvido su Contraseña?</a>                     
                     </div>
                     <div class="form-group">
-                        <button [disabled]="!form.valid" class="btn btn-main btn-block" type="submit">Sign in</button>
+                        <button [disabled]="!form.valid" class="btn btn-main btn-block" type="submit">Entrar</button>
                     </div>
                 </form>
-              
-                <div class="auth-sep"><span><span>or Sign in with one click</span></span></div>
-
-                <div class="form-group">
-                    <ul class="login-help">
-                        <li><i class="socicon socicon-facebook transition"></i></li>
-                        <li><i class="socicon socicon-twitter transition"></i></li>
-                        <li><i class="socicon socicon-google transition"></i></li>              
-                    </ul>
-                </div>
                
             </div>
         </div>

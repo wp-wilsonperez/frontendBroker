@@ -11,16 +11,10 @@ export class AppConfig {
    constructor(){
         this.sassVariables = this.getSassVariables();
         this.config = {
-<<<<<<< HEAD
-            name: 'Brokers',
-            title: 'Y TODO SGURO ',
-            version: '0.0.1',
-            endPointUrl:'',
-=======
+
             name: 'YTODOSEGURO',
             title: 'Sistema YTODOSEGURO para el manejo interno de los brokers de seguros.',
             version: 'V0.1',
->>>>>>> 70fc3765e22bbe0a3799adb6b5a8467f430b31ad
             colors:{
                 main: this.sassVariables['main-color'],
                 default: this.sassVariables['default-color'],

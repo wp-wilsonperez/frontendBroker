@@ -28,7 +28,7 @@ export class LoginComponent {
     public onSubmit(values:Object):void {
         if (this.form.valid) {
             console.log(values);
-            this.router.navigate(['pages/dashboard']);
+            this.router.navigate(['pages/']);
         }
     }
 }

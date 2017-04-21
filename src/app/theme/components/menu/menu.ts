@@ -1,6 +1,6 @@
 export const menuItems = [
   {
-    title: 'Dashboard',
+    title: 'Panel de Control',
     routerLink: 'dashboard',
     icon: 'fa-home',
     selected: false,
