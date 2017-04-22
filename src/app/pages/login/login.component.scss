@@ -10,13 +10,14 @@
     position: absolute;
     .card{
         padding: 15px;
+        color: $primary-color-app;
         .btn-link{
             padding: 0;
             &.forgot{
                 font-size: 14px;
             }
             &:hover{
-                color: $main-color;
+                color: $secondary-color-app;
             }
         }
        
@@ -84,4 +85,11 @@
         }
     }
 }
-
+.btn-login
+{
+    background: $primary-color-app;
+}
+.btn-login:hover
+{
+    background: $secondary-color-app;
+}
