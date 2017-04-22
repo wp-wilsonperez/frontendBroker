@@ -78,7 +78,7 @@
                 display: inline-block;
                 min-width: 10px;
                 padding: 2px 4px 2px 4px;
-                color: $default-color;
+                color: $navbar-text-color;
                 vertical-align: baseline;
                 white-space: nowrap;
                 text-align: center;
@@ -105,7 +105,7 @@
                 width: 40px;
                 position: absolute;
                 top: -18px;
-                right: -27px;                
+                right: -27px;
                 -webkit-animation: pulsate 8s ease-out;
                 -moz-animation: pulsate 8s ease-out;
                 -o-animation: pulsate 8s ease-out;

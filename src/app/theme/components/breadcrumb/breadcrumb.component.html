@@ -1,5 +1,5 @@
 <div class="clearfix">
-   <span class="text-uppercase pull-left here"></span>
+    <span class="text-uppercase pull-left here">Usted está en :</span>
     <ol class="breadcrumb">        
         <li *ngFor="let breadcrumb of breadcrumbs; let i = index;" class="breadcrumb-item text-uppercase">
             <a  [hidden]="i == (breadcrumbs.length - 1)" [routerLink]="[breadcrumb.url]">{{breadcrumb.name}}</a>          
