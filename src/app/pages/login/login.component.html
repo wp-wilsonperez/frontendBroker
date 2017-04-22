@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="login-container">
     <div class="col-xl-4 col-md-6 col-10 offset-xl-4 offset-md-3 offset-1">
         <div class="card">
@@ -32,3 +33,40 @@
     </div>
 </div>
 
+=======
+<div class="login-container">
+    <div class="col-xl-4 col-md-6 col-10 offset-xl-4 offset-md-3 offset-1">
+        <div class="card">
+            <div class="card-block text-center">
+                <h2 class="card-title">YTODOSEGURO</h2>
+                <p>Si no tienes una cuenca, contactate con el administrador del sistema!</p>
+
+                <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class=" text-left">
+                    <div class="form-group">
+                        <input [formControl]="email" class="form-control checking-field" placeholder="Correo" type="email">                      
+                        <span class="help-block text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">Correo Obligatorio</span>                              
+                        <span class="help-block text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('invalidEmail')">Correo Incorrecto</span>
+                    </div>
+                    <div class="form-group">
+                        <input [formControl]="password" class="form-control checking-field" placeholder="Contraseña" type="password">
+                        <span class="help-block text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('required')">Contraseña Obligatoria</span>                              
+                        <span class="help-block text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">Contraseña incorrecta</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input checkbox-main" type="checkbox">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description align-middle">Recuerdamé.</span>
+                        </label>
+                        <a class="btn btn-link forgot transition pull-right" href="javascript:void(0);">Olvidaste tú Contraseña?</a>                     
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="!form.valid" class="btn btn-main btn-block btn-login" type="submit">Iniciar Sesión</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+>>>>>>> cb3d77a8924295fb9af5ef75226952190fe20b7a
