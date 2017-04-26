@@ -1,13 +1,15 @@
+import { Http } from '@angular/http';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import { WizardValidationService } from './wizard-validation.service';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'az-wizard',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './wizard.component.html',
   styleUrls: ['./wizard.component.scss'],
-  providers: [ WizardValidationService ] 
+  providers: [ WizardValidationService  ] 
 })
 export class WizardComponent {
     public steps:any[];
@@ -17,11 +19,12 @@ export class WizardComponent {
     public details:any = {};
     public showConfirm:boolean;
 
-    constructor(private formBuilder: FormBuilder) {   
+    constructor(private formBuilder: FormBuilder,public http:Http) {   
 
         this.steps = [
           {name: 'Informacion de Cuenta', icon: 'fa-lock', active: true, valid: false, hasError:false },
           {name: 'Informacion Personal', icon: 'fa-user', active: false, valid: false, hasError:false },
+
           {name: 'Roles', icon: 'fa fa-tasks', active: false, valid: false, hasError:false },
           {name: 'Confirmar la Creacion', icon: 'fa-check-square-o', active: false, valid: false, hasError:false }
         ]
@@ -34,24 +37,16 @@ export class WizardComponent {
         }, {validator: WizardValidationService.matchingPasswords('password', 'confirmPassword')});
 
         this.personalForm = this.formBuilder.group({
-            'salutation': [''],
-            'firstname': ['', Validators.required],
-            'lastname': ['', Validators.required],
-            'gender': [''],
-            'email': ['', Validators.compose([Validators.required, WizardValidationService.emailValidator])],
-            'phone': ['', Validators.required],
-            'zipcode': ['', Validators.required],
-            'country': ['', Validators.required],
-            'state' : [''],
-            'address' : ['']
+            'name': ['', Validators.required],
+            'lastName': ['', Validators.required],
+            'cedula': ['', Validators.required],
+            'telefono': ['', Validators.required],
+            'birthDate': [''],
+            'direccion' : ['']
         });
 
         this.paymentForm = this.formBuilder.group({
-            'cardtype': ['', Validators.required],
-            'cardnumber': ['', Validators.compose([Validators.required, WizardValidationService.numberValidator])],
-            'cvc': ['', Validators.compose([Validators.required, WizardValidationService.numberValidator])],
-            'expirymonth': ['', Validators.required],
-            'expiryyear': ['', Validators.required]
+         
         });        
     }
 
@@ -104,15 +99,34 @@ export class WizardComponent {
         });
 
         this.details.username = this.accountForm.value.username;
-        this.details.fullname = this.personalForm.value.firstname + " " + this.personalForm.value.lastname;
-        this.details.gender = this.personalForm.value.gender;
-        this.details.email = this.personalForm.value.email;
-        this.details.phone = this.personalForm.value.phone;
-        this.details.country = this.personalForm.value.country;
-        this.details.zipcode = this.personalForm.value.zipcode;
-        this.details.address = this.personalForm.value.address;
-        this.details.cardtype = this.paymentForm.value.cardtype;
-        this.details.cardnumber = this.paymentForm.value.cardnumber;  
+        this.details.fullname = this.personalForm.value.name + " " + this.personalForm.value.lastName;
+        this.details.email = this.accountForm.value.email;
+        this.details.telefono = this.personalForm.value.telefono;
+        this.details.cedula = this.personalForm.value.cedula;
+        this.details.birthDate = this.personalForm.value.birthDate;
+        this.details.cedula = this.personalForm.value.cedula;
+        this.details.direccion = this.personalForm.value.direccion;
+    
+    }
+
+    saveUser(){
+        let request = {
+            name : this.personalForm.value.name,
+            lastName : this.personalForm.value.lastName,
+            cedula : this.details.cedula ,
+            password: this.accountForm.value.password,
+            mail: this.details.email,
+            phone :   this.details.telefono ,
+            dateBirthday : this.details.birthDate
+
+        }
+        console.log(request);
+
+        this.http.post('http://localhost:3000/user?AUTH=true',request).toPromise().then(result=>{
+            console.log(result.json()   );
+            
+        });
+        
     }
 
     public prev(){

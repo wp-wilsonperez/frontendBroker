@@ -9,6 +9,7 @@ import { AppConfig } from './app.config';
 
 import { AppComponent } from './app.component';
 import { ErrorComponent } from './pages/error/error.component';
+import { HttpModule } from '@angular/http';
 
 
 
@@ -19,6 +20,7 @@ import { ErrorComponent } from './pages/error/error.component';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
     }),

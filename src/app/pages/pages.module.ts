@@ -11,6 +11,7 @@ import { MessagesComponent } from '../theme/components/messages/messages.compone
 import { BreadcrumbComponent } from '../theme/components/breadcrumb/breadcrumb.component';
 import { BackTopComponent } from '../theme/components/back-top/back-top.component';
 import { SearchComponent } from './search/search.component';
+import { HttpModule } from '@angular/http';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { SearchComponent } from './search/search.component';
     CommonModule,
     DirectivesModule,
     PipesModule,
-    routing
+    routing,
+    HttpModule
   ],
   declarations: [ 
     PagesComponent,
