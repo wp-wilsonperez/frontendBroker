@@ -9,18 +9,17 @@ export const menuItems = [
     subMenu: [
       {
         title: 'Crear Usuario',
-        routerLink: 'form-elements/wizard',
+        routerLink: 'usuarios/crear',
         disabled: true,
         selected: false,
         expanded: false
       },
-      {
+       {
         title: 'Listado de Usuarios',
-        routerLink: '',
-         disabled: true,
+        routerLink: 'usuarios/listado',
+        disabled: true,
         selected: false,
         expanded: false
-     
       }
     ]
   }, 

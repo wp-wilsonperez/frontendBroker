@@ -1,17 +1,18 @@
+import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
-import { WizardValidationService } from './wizard-validation.service';
+import { ValidationService } from './validation.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'az-wizard',
   encapsulation: ViewEncapsulation.None,
-  templateUrl: './wizard.component.html',
-  styleUrls: ['./wizard.component.scss'],
-  providers: [ WizardValidationService  ] 
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss'],
+  providers: [ ValidationService  ] 
 })
-export class WizardComponent {
+export class UserComponent {
     public steps:any[];
     public accountForm:FormGroup;
     public personalForm:FormGroup;
@@ -19,7 +20,7 @@ export class WizardComponent {
     public details:any = {};
     public showConfirm:boolean;
 
-    constructor(private formBuilder: FormBuilder,public http:Http) {   
+    constructor(private formBuilder: FormBuilder,public http:Http,public router:Router) {   
 
         this.steps = [
           {name: 'Informacion de Cuenta', icon: 'fa-lock', active: true, valid: false, hasError:false },
@@ -33,8 +34,8 @@ export class WizardComponent {
             'username': ['', Validators.required],
             'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
             'confirmPassword': ['', Validators.required],
-            'email': ['', Validators.compose([Validators.required, WizardValidationService.emailValidator])]            
-        }, {validator: WizardValidationService.matchingPasswords('password', 'confirmPassword')});
+            'email': ['', Validators.compose([Validators.required, ValidationService.emailValidator])]            
+        }, {validator: ValidationService.matchingPasswords('password', 'confirmPassword')});
 
         this.personalForm = this.formBuilder.group({
             'name': ['', Validators.required],
@@ -115,7 +116,7 @@ export class WizardComponent {
             lastName : this.personalForm.value.lastName,
             cedula : this.details.cedula ,
             password: this.accountForm.value.password,
-            mail: this.details.email,
+            email: this.details.email,
             phone :   this.details.telefono ,
             dateBirthday : this.details.birthDate
 
@@ -123,7 +124,9 @@ export class WizardComponent {
         console.log(request);
 
         this.http.post('http://localhost:3000/user?AUTH=true',request).toPromise().then(result=>{
-            console.log(result.json()   );
+            let apiResult = result.json();
+            apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/listado']):null;
+
             
         });
         
