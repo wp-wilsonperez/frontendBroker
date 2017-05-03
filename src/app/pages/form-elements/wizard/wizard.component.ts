@@ -24,7 +24,6 @@ export class WizardComponent {
         this.steps = [
           {name: 'Informacion de Cuenta', icon: 'fa-lock', active: true, valid: false, hasError:false },
           {name: 'Informacion Personal', icon: 'fa-user', active: false, valid: false, hasError:false },
-
           {name: 'Roles', icon: 'fa fa-tasks', active: false, valid: false, hasError:false },
           {name: 'Confirmar la Creacion', icon: 'fa-check-square-o', active: false, valid: false, hasError:false }
         ]

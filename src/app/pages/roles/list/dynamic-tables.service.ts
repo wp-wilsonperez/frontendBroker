@@ -15,12 +15,6 @@ export class UserService {
         })
 
     }
-    delete(id:string):Promise<any>{
-       return this.http.delete('http://localhost:3000/user/'+id+'?AUTH=true').toPromise().then(result=>{
-
-             result.json();
-        })
-    }
 
     data = {
          people:[

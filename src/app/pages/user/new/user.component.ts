@@ -40,11 +40,11 @@ export class UserComponent {
         this.personalForm = this.formBuilder.group({
             'name': ['', Validators.required],
             'lastName': ['', Validators.required],
-            'cedula': ['', Validators.compose([Validators.required,Validators.minLength(6)])],
+            'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
             'telefono': ['', Validators.required],
             'birthDate': [''],
             'direccion' : ['']
-        });
+        },{validator: ValidationService.validacionCedula('cedula')});
 
         this.paymentForm = this.formBuilder.group({
          

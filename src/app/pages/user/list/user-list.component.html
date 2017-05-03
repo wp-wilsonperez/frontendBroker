@@ -11,6 +11,13 @@
                 </div>        
             </div>
             <div class="card-block widget-body">
+
+                 <div *ngIf="toast" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{message}}</strong> 
+                </div>
                 
                 <div class="w-200 pull-right bottom-15">
                     <div class="input-group input-group-sm">
@@ -38,13 +45,40 @@
                                     {{user.lastName}}
                                 </td>
                                 <td>
-
+                                     {{user.email}}
                                 </td>
                                 <td>
                                     {{user.phone}}
                                 </td>
-                                <td class="w-150">
-                               
+                                <td class="row col  bottom-15">
+                                  
+                                      <div class="d-inline-block">
+                                                <div class="row">
+                              
+                                                    <button type="button" class="btn btn-primary">Editar</button>
+                                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#primary-modal">Borrar</button>
+
+                                                                                        <div class="modal fade" id="primary-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                                                            <div class="modal-dialog" role="document">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header state modal-primary">                                    
+                                                                                                        <h4 class="modal-title" id="modal-primary-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
+                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                                                    </div>
+                                                                                                    <div class="modal-body">
+                                                                                                        Se borrara el usuario y todos los datos relacionados
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer">
+                                                                                                        <button (click)="borrar(user._id)" type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                </div>
+                                                
+                                            </div>
                                 </td>
                                 </tr>
                           

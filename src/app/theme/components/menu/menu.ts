@@ -22,7 +22,31 @@ export const menuItems = [
         expanded: false
       }
     ]
-  }, 
+  },
+   {
+    title: 'Roles',
+    routerLink: 'tables',
+    icon: 'fa fa-tasks',
+    selected: false,
+    expanded: false,
+    order: 400,
+    subMenu: [
+      {
+        title: 'Nuevo Rol',
+        routerLink: 'usuarios/nuevo_rol',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+       {
+        title: 'Listado de Roles',
+        routerLink: 'usuarios/roles',
+        disabled: true,
+        selected: false,
+        expanded: false
+      }
+    ]
+  }
   
   
   
