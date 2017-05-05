@@ -16,6 +16,22 @@ export class RolsListComponent {
     public toast:boolean;
     public message:string;
 
+    //checkbox user 
+    public userCreate:boolean = false;
+    public userEdit:boolean = false;
+    public userDelete:boolean = false;
+    //checkbox rols 
+    public rolCreate:boolean = false;
+    public rolEdit:boolean = false;
+    public rolDelete:boolean = false;
+    //checkbox rols 
+    public buCreate:boolean = false;
+    public buEdit:boolean = false;
+    public buDelete:boolean = false;
+    //
+
+
+
     constructor(public http:Http){
         this.loadRols();
       
@@ -39,6 +55,16 @@ export class RolsListComponent {
             
         })
 
+    }
+    checkPermission(id){
+        this.http.get('http://localhost:3000/role/grant/'+id+'?AUTH=true').toPromise().then(result=>{
+            let apiResult = result.json();
+            console.log(apiResult);
+            
+        })
+        console.log(id);
+        
+        
     }
 }
 

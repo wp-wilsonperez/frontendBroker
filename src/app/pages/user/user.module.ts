@@ -32,7 +32,8 @@ export const routes = [
   ],
   declarations: [
     UserComponent,UserListComponent,RolesComponent,RolsListComponent
-  ]
+  ],
+  providers: []
 })
 export class UserModule { 
   

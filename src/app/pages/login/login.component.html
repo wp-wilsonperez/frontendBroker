@@ -2,14 +2,22 @@
     <div class="col-xl-4 col-md-6 col-10 offset-xl-4 offset-md-3 offset-1">
         <div class="card">
             <div class="card-block text-center">
+
+                <div *ngIf="loginErr" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Acceso Invalido</strong>
+                </div>
+
                 <h2 class="card-title">YTODOSEGURO</h2>
-                <p>Si no tienes una cuenca, contactate con el administrador del sistema!</p>
+                <p>Si no tienes una cuenta, contactate con el administrador del sistema!</p>
 
                 <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class=" text-left">
                     <div class="form-group">
-                        <input [formControl]="email" class="form-control checking-field" placeholder="Correo" type="email">                      
-                        <span class="help-block text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">Correo Obligatorio</span>                              
-                        <span class="help-block text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('invalidEmail')">Correo Incorrecto</span>
+                        <input maxlength="10" [formControl]="cedula" class="form-control checking-field" placeholder="Cedula" type="text">                      
+                        <span class="help-block text-danger" *ngIf="form.get('cedula').touched && form.get('cedula').hasError('required')">Cedula Obligatoria</span>                              
+                        <span class="help-block text-danger" *ngIf="form.get('cedula').touched && form.get('cedula').hasError('invalidCedula')">Cedula Incorrecta</span>
                     </div>
                     <div class="form-group">
                         <input [formControl]="password" class="form-control checking-field" placeholder="Contraseña" type="password">
@@ -20,7 +28,7 @@
                         <label class="custom-control custom-checkbox">
                             <input class="custom-control-input checkbox-main" type="checkbox">
                             <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description align-middle">Recuerdamé.</span>
+                            <span class="custom-control-description align-middle">Recuerdame.</span>
                         </label>
                         <a class="btn btn-link forgot transition pull-right" href="javascript:void(0);">Olvidaste tú Contraseña?</a>                     
                     </div>
