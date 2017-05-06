@@ -1,12 +1,15 @@
+import { Http } from '@angular/http';
+import { ValidationService } from './../new/validation.service';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { UserService } from './dynamic-tables.service';
+import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'az-dynamic-tables',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
-  providers: [ UserService ]
+  providers: [ UserService,ValidationService ]
 })
 export class UserListComponent {
     public data: any;
@@ -14,8 +17,19 @@ export class UserListComponent {
     public searchText:string;
     public toast:boolean;
     public message:string;
-    constructor(private userService:UserService){
+    public userInfo:any;
+    public editForm: FormGroup;
+    public userId;
+    constructor(private userService:UserService,private formBuilder: FormBuilder,public http:Http){
        this.loadUsers();
+       this.editForm= this.formBuilder.group({
+            'name': ['', Validators.required],
+            'lastName': ['', Validators.required],
+            'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
+            'telefono': ['', Validators.required],
+            'birthDate': [''],
+            'direccion' : ['']
+        },{validator: ValidationService.validacionCedula('cedula')});
     }
     borrar(id){
        this.userService.delete(id).then(result=>{
@@ -36,6 +50,23 @@ export class UserListComponent {
                     
         })
 
+    }
+    userDetail(user){
+        this.userId = user._id;
+        this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,telefono: user.phone,birthDate: user.dateBirthday,direccion:"sin recibir"});
+    
+        
+        
+    }
+    editUser(){
+
+            console.log(this.editForm.value)
+            console.log(this.userId);
+            this.http.post('http://localhost:3000/user/'+this.userId+"?AUTH=true",this.editForm.value).toPromise().then(result=>{
+                console.log(result.json());
+                this.loadUsers();  
+            })
+            
     }
 }
 
