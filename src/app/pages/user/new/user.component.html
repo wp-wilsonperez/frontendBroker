@@ -131,7 +131,18 @@
                         <div class="form-group col-md-12" >
                             <label class="form-control-label">Direccion</label>
                             <textarea formControlName="direccion" class="form-control"></textarea>
-                        </div>                     
+                        </div> 
+                        
+         
+                    <div class="form-group col-md-6">
+                    
+                        <h6>Imagen de Perfil</h6>
+                        <az-image-uploader></az-image-uploader>
+                    </div>
+
+                  
+        
+                                           
                     </form>
 
                     <form *ngIf="step.name=='Roles'" [formGroup]="paymentForm" class="row">

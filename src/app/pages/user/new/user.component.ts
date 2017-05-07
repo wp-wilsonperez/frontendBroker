@@ -1,8 +1,11 @@
+import { Observable } from 'rxjs/Observable';
+import { ImageUploaderComponent } from './../image-uploader/image-uploader.component';
 import { Router } from '@angular/router';
-import { Http } from '@angular/http';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import { ValidationService } from './validation.service';
+
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -19,6 +22,10 @@ export class UserComponent {
     public paymentForm:FormGroup;
     public details:any = {};
     public showConfirm:boolean;
+    public imagen:any;
+    public imgResult:any;
+     @ViewChild(ImageUploaderComponent)
+     public  imageComponent: ImageUploaderComponent;
 
     constructor(private formBuilder: FormBuilder,public http:Http,public router:Router) {   
 
@@ -43,6 +50,7 @@ export class UserComponent {
             'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
             'telefono': ['', Validators.required],
             'birthDate': [''],
+            'imagen': [''],
             'direccion' : ['']
         },{validator: ValidationService.validacionCedula('cedula')});
 
@@ -55,7 +63,7 @@ export class UserComponent {
         let accountForm = this.accountForm;
         let personalForm = this.personalForm;
         let paymentForm = this.paymentForm;
-
+        
         if(this.steps[this.steps.length-1].active)
             return false;
             
@@ -75,12 +83,14 @@ export class UserComponent {
                     }
                     if(step.name=='Informacion Personal'){
                         if (personalForm.valid) {
+                        
                             step.active = false;
                             step.valid = true;
                             steps[index+1].active=true;
                             return true;
                         }
                         else{
+                            
                             step.hasError = true;
                         }                      
                     }
@@ -109,8 +119,15 @@ export class UserComponent {
         this.details.direccion = this.personalForm.value.direccion;
     
     }
+    onChange(event) {
+            var files = event.srcElement.files;
+            console.log(files[0]);
+            this.imagen = files[0];
+            
+  }
 
     saveUser(){
+        
         let request = {
             name : this.personalForm.value.name,
             lastName : this.personalForm.value.lastName,
@@ -118,19 +135,70 @@ export class UserComponent {
             password: this.accountForm.value.password,
             email: this.details.email,
             phone :   this.details.telefono ,
-            dateBirthday : this.details.birthDate
+            dateBirthday : this.details.birthDate,
+            userImg:''
 
         }
-        console.log(request);
+        if(this.imageComponent.file != undefined){
 
-        this.http.post('http://localhost:3000/user?AUTH=true',request).toPromise().then(result=>{
-            let apiResult = result.json();
-            apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/listado']):null;
+                    console.log(this.imageComponent.file);
 
-            
-        });
+                  
+                  this.makeFileRequest('http://localhost:3000/userImg?AUTH=true',this.imageComponent.file).map(res => {
+                      return (res);
+                  }).subscribe(result=>{
+                      this.imgResult = result;
+                      console.log(this.imgResult.userImg);
+                      request.userImg = this.imgResult.userImg;
+                      console.log(request);
+                      this.http.post('http://localhost:3000/user?AUTH=true',request).toPromise().then(result=>{
+                             let apiResult = result.json();
+                             apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/listado']):null;
+
+                      })
+                      
+                      
+                  })
+                    
+
+        }else{
+
+             console.log(request);
+                      this.http.post('http://localhost:3000/user?AUTH=true',request).toPromise().then(result=>{
+                             let apiResult = result.json();
+                             apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/listado']):null;
+
+                      })
+
+
+
+
+        }
+      
+
+  
         
     }
+    makeFileRequest(url: string, file: any) {
+    return Observable.fromPromise(new Promise((resolve, reject) => {
+        let formData: any = new FormData()
+        let xhr = new XMLHttpRequest()
+   
+            formData.append("userImg", file, file.name)
+        
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    resolve(JSON.parse(xhr.response))
+                } else {
+                    reject(xhr.response)
+                }
+            }
+        }
+        xhr.open("POST", url, true)
+        xhr.send(formData)
+    }));
+}
 
     public prev(){
         if(this.steps[0].active)
@@ -145,6 +213,7 @@ export class UserComponent {
             }             
         });
     }
+    
 
     public confirm(){
         this.steps.forEach(step => step.valid = true);

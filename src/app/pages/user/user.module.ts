@@ -1,3 +1,4 @@
+import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 import { RolsListComponent } from './../roles/list/rols-list.component';
 import { RolesComponent } from './../roles/new/roles.component';
 import { UserComponent } from './new/user.component';
@@ -31,7 +32,7 @@ export const routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-    UserComponent,UserListComponent,RolesComponent,RolsListComponent
+    UserComponent,UserListComponent,RolesComponent,RolsListComponent,ImageUploaderComponent
   ],
   providers: []
 })
