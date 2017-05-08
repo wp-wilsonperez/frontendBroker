@@ -52,13 +52,17 @@ export class UserListComponent {
 
     }
     userDetail(user){
+
         this.userId = user._id;
+        console.log(this.userId);
         this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,telefono: user.phone,birthDate: user.dateBirthday,direccion:"sin recibir"});
     
         
         
     }
     editUser(){
+            
+            
 
             console.log(this.editForm.value)
             console.log(this.userId);

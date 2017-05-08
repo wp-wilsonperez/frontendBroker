@@ -133,7 +133,7 @@ export class UserComponent {
             lastName : this.personalForm.value.lastName,
             cedula : this.details.cedula ,
             password: this.accountForm.value.password,
-            email: this.details.email,
+            mail: this.details.email,
             phone :   this.details.telefono ,
             dateBirthday : this.details.birthDate,
             userImg:''

@@ -66,5 +66,98 @@ export class RolsListComponent {
         
         
     }
+    sendPermission(id){
+                
+        let requestUser ={
+            
+            controller:'user',actions:[
+            {
+                name:'create',
+                url:'usuarios/crear'
+            },
+            {
+                name:'list',
+                url:'usuarios/listado'
+            },
+             {
+                name:'edit',
+                url:'usuarios/listado'
+            },
+            {
+                name:'delete',
+                url:'usuarios/listado'
+            }
+
+        ]};  
+        let requestRol ={
+            
+            controller:'rol',actions:[
+            {
+                name:'create',
+                url:'usuarios/crear'
+            },
+            {
+                name:'list',
+                url:'usuarios/listado'
+            },
+             {
+                name:'edit',
+                url:'usuarios/listado'
+            },
+            {
+                name:'delete',
+                url:'usuarios/listado'
+            }
+
+        ]};
+
+
+        let requestBussiness ={
+            
+            controller:'bussiness'
+            ,actions:[
+            {
+                name:'create',
+                url:'usuarios/crear'
+            },
+            {
+                name:'list',
+                url:'usuarios/listado'
+            },
+             {
+                name:'edit',
+                url:'usuarios/listado'
+            },
+            {
+                name:'delete',
+                url:'usuarios/listado'
+            }
+
+        ]}; 
+
+       let request =  [requestUser,requestRol,requestBussiness]
+
+
+        this.http.post('http://localhost:3000/role/grant/'+id+'?AUTH=true',requestUser).toPromise().then(result=>{
+                //first controller
+                console.log(result.json());
+
+                this.http.post('http://localhost:3000/role/grant/'+id+'?AUTH=true',requestRol).toPromise().then(result2=>{
+                        //second controller
+                        console.log(result2.json());
+
+                        this.http.post('http://localhost:3000/role/grant/'+id+'?AUTH=true',requestBussiness).toPromise().then(result3=>{
+                            //third controller
+                            console.log(result3.json());
+                            this.loadRols();
+
+                    })
+
+                })
+            
+        })
+        
+        
+    }
 }
 
