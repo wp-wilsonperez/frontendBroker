@@ -75,8 +75,8 @@
 
 
                     <form *ngIf="step.name=='Informacion Personal'" [formGroup]="personalForm" class="row">
-            
-                        <div class="form-group col-md-5" [ngClass]="{'has-danger' : step.hasError && personalForm.get('name').hasError('required'), 'has-success' : !personalForm.get('name').hasError('required') }">
+                        <div class="col-md-8">
+                        <div class="form-group " [ngClass]="{'has-danger' : step.hasError && personalForm.get('name').hasError('required'), 'has-success' : !personalForm.get('name').hasError('required') }">
                             <label class="form-control-label">Nombre</label>
                             <div class="input-group">
                                       <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
@@ -86,7 +86,7 @@
                             <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('name').hasError('required')">Nombre no puede estar vacio</span>                             
                         </div>
 
-                        <div class="form-group col-md-5" [ngClass]="{'has-danger' : step.hasError && personalForm.get('lastName').hasError('required'), 'has-success' : !personalForm.get('lastName').hasError('required') }">
+                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && personalForm.get('lastName').hasError('required'), 'has-success' : !personalForm.get('lastName').hasError('required') }">
                             <label class="form-control-label">Apellido</label>
                             <div class="input-group">  
                                  <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
@@ -95,10 +95,8 @@
                           
                             <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('lastName').hasError('required')">Apellido no puede estar vacio</span>                             
                         </div>
-
-
-                        
-                        <div class="form-group col-md-5" [ngClass]="{'has-danger' : (step.hasError && personalForm.get('cedula').hasError('required')) || (step.hasError && personalForm.get('cedula').hasError('minlength')) || (step.hasError && personalForm.get('cedula').hasError('invalidNumber')) || (step.hasError && personalForm.get('cedula').hasError('invalidCedula')), 
+                                           
+                        <div class="form-group" [ngClass]="{'has-danger' : (step.hasError && personalForm.get('cedula').hasError('required')) || (step.hasError && personalForm.get('cedula').hasError('minlength')) || (step.hasError && personalForm.get('cedula').hasError('invalidNumber')) || (step.hasError && personalForm.get('cedula').hasError('invalidCedula')), 
                                                                      'has-success' : !personalForm.get('cedula').hasError('required') && !personalForm.get('cedula').hasError('minlength') && !personalForm.get('cedula').hasError('invalidNumber') && !personalForm.get('cedula').hasError('invalidCedula') }">
                             <label class="form-control-label">Cedula</label> 
                             <div class="input-group"> 
@@ -112,7 +110,7 @@
                             <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('cedula').hasError('invalidCedula')">Cedula Invalida</span>                            
                         </div>
 
-                        <div class="form-group col-md-5" [ngClass]="{'has-danger' : step.hasError && personalForm.get('telefono').hasError('required'), 'has-success' : !personalForm.get('telefono').hasError('required') }">
+                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && personalForm.get('telefono').hasError('required'), 'has-success' : !personalForm.get('telefono').hasError('required') }">
                             <label class="form-control-label">Telefono</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-phone"></i></div>
@@ -121,12 +119,22 @@
                             </div>
                             <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('telefono').hasError('required')">Telefono esta vacio</span>                             
                         </div>
-                        
-                          <div class="form-group col-md-12">
+
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group img_user">                    
+                                <h6>Imagen de Perfil</h6>
+                                <az-image-uploader></az-image-uploader>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
                             <label for="input-12">Fecha de Nacimiento</label>
                             <input formControlName="birthDate"  class="form-control" type="date" class="form-control">
                         </div>
 
+                        
                         
                         <div class="form-group col-md-12" >
                             <label class="form-control-label">Direccion</label>
@@ -134,11 +142,7 @@
                         </div> 
                         
          
-                    <div class="form-group col-md-6">
                     
-                        <h6>Imagen de Perfil</h6>
-                        <az-image-uploader></az-image-uploader>
-                    </div>
 
                   
         
