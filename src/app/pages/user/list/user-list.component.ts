@@ -26,9 +26,9 @@ export class UserListComponent {
             'name': ['', Validators.required],
             'lastName': ['', Validators.required],
             'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
-            'telefono': ['', Validators.required],
+            'phone': ['', Validators.required],
             'birthDate': [''],
-            'direccion' : ['']
+            'mail':['',Validators.compose([Validators.required])]
         },{validator: ValidationService.validacionCedula('cedula')});
     }
     borrar(id){
@@ -55,7 +55,7 @@ export class UserListComponent {
 
         this.userId = user._id;
         console.log(this.userId);
-        this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,telefono: user.phone,birthDate: user.dateBirthday,direccion:"sin recibir"});
+        this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,phone: user.phone,birthDate: user.dateBirthday,mail:user.mail});
     
         
         
@@ -63,7 +63,7 @@ export class UserListComponent {
     editUser(){
             
             
-
+            this.editForm.value.Enabled = 1;
             console.log(this.editForm.value)
             console.log(this.userId);
             this.http.post('http://localhost:3000/user/'+this.userId+"?AUTH=true",this.editForm.value).toPromise().then(result=>{

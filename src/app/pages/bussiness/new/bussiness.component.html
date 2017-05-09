@@ -1,0 +1,132 @@
+<div class="row">
+    
+    <div class="col-md-12">
+        <div widget class="card">
+            <div class="card-header">
+                <span>NUEVO BUSSINESS</span>
+                <div class="widget-controls">              
+  
+                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>                          
+         
+                </div>        
+            </div>
+            <div class="card-block widget-body">
+ <form [formGroup]="bussinessForm" class="row">
+            
+        <div class="form-group col-md-5" [ngClass]="{'has-danger' :  bussinessForm.get('name').hasError('required'), 'has-success' : !bussinessForm.get('name').hasError('required') }">
+            <label class="form-control-label">Nombre</label>
+            <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                    <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('name').hasError('required'), 'form-control-success' :  !bussinessForm.get('name').hasError('required') }" type="text"> 
+            </div>
+        
+            <span class="help-block text-danger" *ngIf="bussinessForm.get('name').hasError('required')">Nombre no puede estar vacio</span>                             
+        </div>
+
+        <div class="form-group col-md-5" [ngClass]="{'has-danger' : bussinessForm.get('ruc').hasError('required'), 'has-success' : !bussinessForm.get('ruc').hasError('required') }">
+            <label class="form-control-label">Ruc</label>
+            <div class="input-group">  
+                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                <input formControlName="ruc" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('ruc').hasError('required'), 'form-control-success' :  !bussinessForm.get('ruc').hasError('required') }" type="text"> 
+            </div>
+        
+            <span class="help-block text-danger" *ngIf="bussinessForm.get('ruc').hasError('required')">Ruc no puede estar vacio</span>                             
+        </div>
+
+        <div class="form-group col-md-5" [ngClass]="{'has-danger' : bussinessForm.get('password').hasError('required'), 'has-success' : !bussinessForm.get('password').hasError('required') }">
+            <label class="form-control-label">Password</label>
+            <div class="input-group">  
+                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                <input formControlName="password" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('password').hasError('required'), 'form-control-success' :  !bussinessForm.get('password').hasError('required') }" type="password"> 
+            </div>
+        
+            <span class="help-block text-danger" *ngIf="bussinessForm.get('ruc').hasError('required')">Password no puede estar vacio</span>                             
+        </div>
+
+
+
+        
+        <div class="form-group col-md-5" [ngClass]="{'has-danger' : (bussinessForm.get('userMaster').hasError('required')) || (bussinessForm.get('userMaster').hasError('minlength')) || (bussinessForm.get('userMaster').hasError('invalidNumber')) || (bussinessForm.get('userMaster').hasError('invaliduserMaster')), 
+                                                    'has-success' : !bussinessForm.get('userMaster').hasError('required') && !bussinessForm.get('userMaster').hasError('minlength') && !bussinessForm.get('userMaster').hasError('invalidNumber') && !bussinessForm.get('userMaster').hasError('invaliduserMaster') }">
+            <label class="form-control-label">Usuario Master</label> 
+            <div class="input-group"> 
+                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
+                <input formControlName="userMaster" class="form-control" [ngClass]="{'form-control-danger' : ( bussinessForm.get('userMaster').hasError('required')) || (bussinessForm.get('userMaster').hasError('minlength')) || (bussinessForm.get('userMaster').hasError('invalidNumber')) || (bussinessForm.get('userMaster').hasError('invaliduserMaster')),                                                                                                        
+                'form-control-success' : !bussinessForm.get('userMaster').hasError('required') && !bussinessForm.get('userMaster').hasError('minlength') && !bussinessForm.get('userMaster').hasError('invalidNumber') && !bussinessForm.get('userMaster').hasError('invliduserMaster')}" type="text" maxlength="10">
+            </div>
+            <span class="help-block text-danger" *ngIf="bussinessForm.get('userMaster').hasError('required')">userMaster es Necesaria</span>                              
+            <span class="help-block text-danger" *ngIf="bussinessForm.get('userMaster').hasError('minlength')">La userMaster debe tener  10 caracteres</span>                            
+            <span class="help-block text-danger" *ngIf=" bussinessForm.get('userMaster').hasError('invalidNumber')">La userMaster debe tener solo numeros</span> 
+            <span class="help-block text-danger" *ngIf="bussinessForm.get('userMaster').hasError('invaliduserMaster')">userMaster Invalida</span>                            
+        </div>
+
+
+   <div class="form-group col-md-5" [ngClass]="{'has-danger' : bussinessForm.get('phone').hasError('required'), 'has-success' : !bussinessForm.get('phone').hasError('required') }">
+            <label class="form-control-label">Telefono</label>
+            <div class="input-group">  
+                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                <input formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('phone').hasError('required'), 'form-control-success' :  !bussinessForm.get('phone').hasError('required') }" type="text"> 
+            </div>
+        
+            <span class="help-block text-danger" *ngIf="bussinessForm.get('ruc').hasError('required')">Telefono no puede estar vacio</span>                             
+        </div>
+
+
+        <div class="form-group col-md-5" [ngClass]="{'has-danger' : bussinessForm.get('movil').hasError('required'), 'has-success' : !bussinessForm.get('movil').hasError('required') }">
+            <label class="form-control-label">Telefono Movil</label>
+            <div class="input-group">  
+                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                <input formControlName="movil" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('movil').hasError('required'), 'form-control-success' :  !bussinessForm.get('movil').hasError('required') }" type="text"> 
+            </div>
+        
+            <span class="help-block text-danger" *ngIf="bussinessForm.get('movil').hasError('required')">Telefono Movil no puede estar vacio</span>                             
+        </div>
+        <div class="form-group col-md-5" [ngClass]="{'has-danger' :  bussinessForm.get('mail').hasError('required'), 'has-success' : !bussinessForm.get('mail').hasError('required') }">
+            <label class="form-control-label">Email</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                
+                <input formControlName="mail" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('mail').hasError('required'), 'form-control-success' :  !bussinessForm.get('mail').hasError('required') }" type="text"> 
+            </div>
+            <span class="help-block text-danger" *ngIf="bussinessForm.get('mail').hasError('required')">Email esta vacio</span>                             
+        </div>
+
+        
+
+        <div class="form-group col-md-5">
+                            <label for="input-12">Constitution Date</label>
+                            <input formControlName="constitutionDate"  class="form-control" type="date" class="form-control">
+        </div>
+        <div class="form-group col-md-5">
+                            <label for="input-12">Numero de Empleados</label>
+                            <input formControlName="numberEmp"  class="form-control" type="number" class="form-control">
+        </div>
+
+        <div class="form-group col-md-12">
+                            <label for="input-12">Direccion</label>
+                            <textarea formControlName="address"  class="form-control" class="form-control" cols="30" rows="10">
+
+                            </textarea>
+
+        </div>
+
+
+      
+                    <div class="col-12">
+                        <button  class="btn btn-primary" (click)="saveBussiness()"><i class="fa fa-check"></i>Guardar</button>
+                        
+                    </div> 
+          
+
+
+  
+
+     
+                 
+    </form>
+              
+            </div>
+        </div>
+    </div>
+    </div>

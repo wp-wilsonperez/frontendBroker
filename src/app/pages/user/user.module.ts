@@ -1,6 +1,6 @@
+import { RolesComponent } from './../roles/new/roles.component';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 import { RolsListComponent } from './../roles/list/rols-list.component';
-import { RolesComponent } from './../roles/new/roles.component';
 import { UserComponent } from './new/user.component';
 import { UserListComponent } from './list/user-list.component';
 import { DataTableModule } from "angular2-datatable";

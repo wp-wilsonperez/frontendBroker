@@ -13,6 +13,7 @@ export const routes: Routes = [
             { path:'', redirectTo:'panel', pathMatch:'full' },
             { path: 'panel', component: BlankComponent , data: { breadcrumb: 'Panel' }  },
             { path: 'usuarios', loadChildren: 'app/pages/user/user.module#UserModule', data: { breadcrumb: 'Usuarios' } },
+             { path: 'bussiness', loadChildren: 'app/pages/bussiness/bussiness.module#BussinessModule', data: { breadcrumb: 'Bussiness' } },
             { path: 'maps', loadChildren: 'app/pages/maps/maps.module#MapsModule', data: { breadcrumb: 'Maps' } },
             { path: 'charts', loadChildren: 'app/pages/charting/charting.module#ChartingModule', data: { breadcrumb: 'Charts' } },
             { path: 'ui', loadChildren: 'app/pages/ui/ui.module#UiModule', data: { breadcrumb: 'UI' } },

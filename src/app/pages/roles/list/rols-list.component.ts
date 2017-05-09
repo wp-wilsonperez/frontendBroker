@@ -91,22 +91,24 @@ export class RolsListComponent {
         ]};  
         let requestRol ={
             
-            controller:'rol',actions:[
+            controller:'rol',
+            
+            actions:[
             {
                 name:'create',
-                url:'usuarios/crear'
+                url:'rols/crear'
             },
             {
                 name:'list',
-                url:'usuarios/listado'
+                url:'rols/listado'
             },
              {
                 name:'edit',
-                url:'usuarios/listado'
+                url:'rols/listado'
             },
             {
                 name:'delete',
-                url:'usuarios/listado'
+                url:'rols/listado'
             }
 
         ]};
@@ -118,19 +120,19 @@ export class RolsListComponent {
             ,actions:[
             {
                 name:'create',
-                url:'usuarios/crear'
+                url:'bussiness/crear'
             },
             {
                 name:'list',
-                url:'usuarios/listado'
+                url:'bussiness/listado'
             },
              {
                 name:'edit',
-                url:'usuarios/listado'
+                url:'bussiness/listado'
             },
             {
                 name:'delete',
-                url:'usuarios/listado'
+                url:'bussiness/listado'
             }
 
         ]}; 
@@ -138,22 +140,10 @@ export class RolsListComponent {
        let request =  [requestUser,requestRol,requestBussiness]
 
 
-        this.http.post('http://localhost:3000/role/grant/'+id+'?AUTH=true',requestUser).toPromise().then(result=>{
+        this.http.post('http://localhost:3000/role/grant/'+id+'?AUTH=true',request).toPromise().then(result=>{
                 //first controller
                 console.log(result.json());
 
-                this.http.post('http://localhost:3000/role/grant/'+id+'?AUTH=true',requestRol).toPromise().then(result2=>{
-                        //second controller
-                        console.log(result2.json());
-
-                        this.http.post('http://localhost:3000/role/grant/'+id+'?AUTH=true',requestBussiness).toPromise().then(result3=>{
-                            //third controller
-                            console.log(result3.json());
-                            this.loadRols();
-
-                    })
-
-                })
             
         })
         
