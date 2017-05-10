@@ -18,15 +18,15 @@
           <div class="dropdown float-right user-menu">
               <a class="dropdown-toggle user-link" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
                   <img src="assets/img/users/user.jpg" alt="user-img" class="img-circle user-img">
-                  <span class="hidden-md-down">NOMBRE AQUÍ (Variable)</span>
+                  <span class="hidden-md-down">{{userInfo.name}} {{userInfo.lastName}}</span>
               </a>
 
               <ul class="dropdown-menu">
                   <li class="user-info">
                       <img src="assets/img/users/user.jpg" alt="user-img" class="img-circle user-img">                    
                       <p>
-                          NOMBRE AQUÍ (Variable)
-                          <small>Member since Dec. 2015</small>
+                          {{userInfo.name}} {{userInfo.lastName}}
+                          <small>Cedula : {{userInfo.cedula}}</small>
                       </p>
                   </li>
                   <a class="dropdown-item" routerLink="profile"><i class="fa fa-user"></i>Perfil</a>

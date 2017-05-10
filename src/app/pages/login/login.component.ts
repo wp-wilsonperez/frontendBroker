@@ -1,4 +1,4 @@
-import { SessionService } from './../../providers/session.service';
+import { UserSessionService } from './../../providers/session.service';
 import { Http } from '@angular/http';
 import { ValidationService } from './../user/new/validation.service';
 import { Component, ViewEncapsulation } from '@angular/core';
@@ -10,7 +10,7 @@ import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from 
   encapsulation: ViewEncapsulation.None,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [SessionService]
+  providers: [UserSessionService]
 })
 export class LoginComponent {  
     public router: Router;
@@ -19,7 +19,7 @@ export class LoginComponent {
     public password:AbstractControl;
     public loginErr:boolean= false;
 
-    constructor(router:Router, fb:FormBuilder,public http:Http,public local:SessionService) {
+    constructor(router:Router, fb:FormBuilder,public http:Http,public local:UserSessionService) {
         this.router = router;
         this.form = fb.group({
             'cedula': ['', Validators.compose([Validators.required])],
