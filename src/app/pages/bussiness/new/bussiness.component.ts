@@ -1,3 +1,4 @@
+import { ValidationService } from './validation.service';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { FormBuilder, Validators,FormControl,FormGroup,AbstractControl } from '@angular/forms';
@@ -11,6 +12,9 @@ import 'rxjs/add/operator/toPromise';
 })
 export class BussinessComponent { 
   public bussinessForm:FormGroup;
+  attempt = {
+    valid: null
+  }
 
 
   constructor(public formBuilder:FormBuilder,public http:Http,public router:Router){
@@ -18,25 +22,24 @@ export class BussinessComponent {
         this.bussinessForm= this.formBuilder.group({
             'ruc':['',Validators.compose([Validators.required])],
             'name':['',Validators.compose([Validators.required])],
-            'userMaster':['',Validators.compose([Validators.required])],
-            'password':['',Validators.compose([Validators.required])],
-            'phone':['',Validators.compose([Validators.required])],
+            'userMaster': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
+               'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+            'phone':['',Validators.compose([Validators.required ])],
             'movil':['',Validators.compose([Validators.required])],
-            'address':['',Validators.compose([Validators.required])],
-            'urlImg':[''],
-            'description':['',Validators.compose([Validators.required])],
+            'address':[''],
             'constitutionDate':['',Validators.compose([Validators.required])],
             'parking':[''],
             'numberEmp':['',Validators.compose([Validators.required])],
-            'schedule':[''],
-            'mail':['',Validators.compose([Validators.required])],
+            'mail':['',Validators.compose([Validators.required , ValidationService.emailValidator])],
             'web':[''],
 
-        })
+        },{validator: ValidationService.validacionCedula('userMaster')})
   }
   saveBussiness(){
-      
-        this.http.post('http://localhost:3000/business?AUTH=true',this.bussinessForm.value).toPromise().then(result=>{
+
+        if(this.bussinessForm.valid){
+
+                this.http.post('http://localhost:3000/business?AUTH=true',this.bussinessForm.value).toPromise().then(result=>{
                 let apiResult = result.json();
                 console.log(apiResult);
                 apiResult.msg == "OK"? this.router.navigate(['pages/bussiness/listado']):null
@@ -44,6 +47,13 @@ export class BussinessComponent {
                 //
                 
         })
+
+        }else{
+
+              this.attempt.valid = false;
+        }
+      
+       
         
         
   }
