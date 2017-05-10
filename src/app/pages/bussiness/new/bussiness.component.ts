@@ -32,6 +32,7 @@ export class BussinessComponent {
             'numberEmp':['',Validators.compose([Validators.required])],
             'mail':['',Validators.compose([Validators.required , ValidationService.emailValidator])],
             'web':[''],
+            'description':['']
 
         },{validator: ValidationService.validacionCedula('userMaster')})
   }

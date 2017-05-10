@@ -25,21 +25,19 @@ export class BussinessListComponent {
         this.bussinessForm= this.formBuilder.group({
             'ruc':['',Validators.compose([Validators.required])],
             'name':['',Validators.compose([Validators.required])],
-            'userMaster':['',Validators.compose([Validators.required])],
-            'password':['',Validators.compose([Validators.required])],
-            'phone':['',Validators.compose([Validators.required])],
+            'userMaster': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
+               'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+            'phone':['',Validators.compose([Validators.required ])],
             'movil':['',Validators.compose([Validators.required])],
-            'address':['',Validators.compose([Validators.required])],
-            'urlImg':[''],
-            'description':['',Validators.compose([Validators.required])],
+            'address':[''],
             'constitutionDate':['',Validators.compose([Validators.required])],
             'parking':[''],
             'numberEmp':['',Validators.compose([Validators.required])],
-            'schedule':[''],
-            'mail':['',Validators.compose([Validators.required])],
+            'mail':['',Validators.compose([Validators.required , ValidationService.emailValidator])],
             'web':[''],
+            'description':['']
 
-        })
+        },{validator: ValidationService.validacionCedula('userMaster')})
     
     }
     borrar(id){
@@ -66,7 +64,7 @@ export class BussinessListComponent {
 
         this.bId = user._id;
         console.log(this.bId);
-        this.bussinessForm.setValue({name: user.name,ruc: user.ruc,userMaster:user.userMaster ,phone: user.phone,movil:user.movil,mail:user.mail,password:user.password,address:'',urlImg:'',description:'',constitutionDate:'',parking:'',numberEmp:user.numberEmp,schedule:'',web:''});
+        this.bussinessForm.setValue({name: user.name,ruc: user.ruc,userMaster:user.userMaster ,phone: user.phone,movil:user.movil,mail:user.mail,password:user.password,address:'',description:'',constitutionDate:'',parking:'',numberEmp:user.numberEmp,web:''});
     
         
         
