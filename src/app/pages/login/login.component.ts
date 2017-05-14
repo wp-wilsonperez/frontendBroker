@@ -41,6 +41,7 @@ export class LoginComponent {
                 if(apiResult.login){
                     
                     this.local.setUser(apiResult.user);
+
                     this.router.navigate(['pages/'])
                 }else{
 

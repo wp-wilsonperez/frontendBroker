@@ -144,14 +144,14 @@ export class UserComponent {
                     console.log(this.imageComponent.file);
 
                   
-                  this.makeFileRequest('http://localhost:3000/userImg?AUTH=true',this.imageComponent.file).map(res => {
+                  this.makeFileRequest('http://localhost:3000/user/adduserImg?AUTH=true',this.imageComponent.file).map(res => {
                       return (res);
                   }).subscribe(result=>{
                       this.imgResult = result;
                       console.log(this.imgResult.userImg);
                       request.userImg = this.imgResult.userImg;
                       console.log(request);
-                      this.http.post('http://localhost:3000/user?AUTH=true',request).toPromise().then(result=>{
+                      this.http.post('http://localhost:3000/user/add?AUTH=true',request).toPromise().then(result=>{
                              let apiResult = result.json();
                              apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/listado']):null;
 
@@ -164,7 +164,7 @@ export class UserComponent {
         }else{
 
              console.log(request);
-                      this.http.post('http://localhost:3000/user?AUTH=true',request).toPromise().then(result=>{
+                      this.http.post('http://localhost:3000/user/add?AUTH=true',request).toPromise().then(result=>{
                              let apiResult = result.json();
                              apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/listado']):null;
 

@@ -11,8 +11,27 @@
          
                 </div>        
             </div>
+            
             <div class="card-block widget-body">
- <form [formGroup]="bussinessForm" class="row">
+        <div class="form-group col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button data-toggle="modal" data-target="#licenceModal" 
+                             [ngClass]="{'btn-success' : licence != undefined , 'btn-danger' : licence == undefined}"
+                            type="button" class="btn">  <span *ngIf="licence == undefined"> Crear Licencia  </span> <span *ngIf="licence != undefined"> Licencia Creada!  </span></button>
+
+
+
+                        </span>
+                        <input disabled [(ngModel)]="licenceKey" type="text" class="form-control">
+                      
+                    </div>
+         </div>
+         
+                
+        <form [formGroup]="bussinessForm" class="row">
+
+         
             
         <div class="form-group col-md-5" [ngClass]="{'has-danger' :  bussinessForm.get('name').hasError('required') && attempt.valid == false
                     , 'has-success' : !bussinessForm.get('name').hasError('required') }">
@@ -26,17 +45,18 @@
             <span class="help-block text-danger" *ngIf="bussinessForm.get('name').hasError('required') && attempt.valid == false">Nombre no puede estar vacio</span>                             
         </div>
 
-        <div class="form-group col-md-5" [ngClass]="{'has-danger' : bussinessForm.get('ruc').hasError('required') && attempt.valid == false
-        , 'has-success' : !bussinessForm.get('ruc').hasError('required') }">
-            <label class="form-control-label">Ruc</label>
-            <div class="input-group">  
-                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                <input formControlName="ruc" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('ruc').hasError('required') && attempt.valid == false,
-                 'form-control-success' :  !bussinessForm.get('ruc').hasError('required') }" type="text"> 
-            </div>
-        
-            <span class="help-block text-danger" *ngIf="bussinessForm.get('ruc').hasError('required') && attempt.valid == false">Ruc no puede estar vacio</span>                             
-        </div>
+                    <div class="form-group col-md-5" [ngClass]="{'has-danger' : bussinessForm.get('ruc').hasError('required') && attempt.valid == false  || bussinessForm.get('userMaster').hasError('invalidNumber') && attempt.valid == false 
+                    , 'has-success' : !bussinessForm.get('ruc').hasError('required') &&  !bussinessForm.get('ruc').hasError('invalidNumber')}">
+                        <label class="form-control-label">Ruc</label>
+                        <div class="input-group">  
+                            <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                            <input formControlName="ruc" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('ruc').hasError('required') && attempt.valid == false ||  bussinessForm.get('ruc').hasError('invalidNumber') && attempt.valid == false,
+                            'form-control-success' :  !bussinessForm.get('ruc').hasError('required') && !bussinessForm.get('ruc').hasError('invalidNumber') }" type="text"> 
+                        </div>
+                    
+                        <span class="help-block text-danger" *ngIf="bussinessForm.get('ruc').hasError('required') && attempt.valid == false">Ruc no puede estar vacio</span>                             
+                          <span class="help-block text-danger" *ngIf="bussinessForm.get('ruc').hasError('invalidNumber') && attempt.valid == false">Ruc puede tener solo numeros</span>                             
+                    </div>
 
 
          <div class="form-group col-md-5" [ngClass]="{'has-danger' : (attempt.valid == false && bussinessForm.get('password').hasError('required')) || (attempt.valid == false && bussinessForm.get('password').hasError('minlength')), 
@@ -138,7 +158,7 @@
                         <label for="input-12"> Parking</label>
                         <div class="abc-checkbox abc-checkbox-primary">
                             <input formControlName="parking" value="true" id="checkbox2" type="checkbox">
-                            <label for="checkbox2">Yes</label>
+                            <label for="checkbox2">Si</label>
                         </div>
                
                     </div>
@@ -163,7 +183,7 @@
 
       
                     <div class="col-12">
-                        <button  class="btn btn-primary" (click)="saveBussiness()"><i class="fa fa-check"></i>Guardar</button>
+                        <button  class="btn btn-primary" [disabled]="!bussinessForm.valid || licence == undefined " (click)="saveBussiness()"><i class="fa fa-check"></i>Guardar</button>
                         
                     </div> 
           
@@ -174,8 +194,48 @@
      
                  
     </form>
+      <div class="modal fade" id="licenceModal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header state modal-primary">                                    
+                                                                                        <h4 class="modal-title" id="modal-primary-label"><i class="fa fa-plus-square-o"></i>Crear Licencia</h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div class="">
+                                                                                            <div widget class="card">
+                                                                                           
+                                                                                                <div class="card-block widget-body">
+                                                                                                        <form  [formGroup]="licenseForm"class="row">
+                                                                                                                     <div class="form-group col-md-5">
+                                                                                                                                    <label for="input-12">Fecha de Inicio</label>
+                                                                                                                                    <input  class="form-control" formControlName="dateStart" type="date" class="form-control">
+                                                                                                                         </div>
+                                                                                                                         <div  class="form-group col-md-2">
+                                                                                                                                    <label for="input-12">Años</label>
+                                                                                                                                    <input formControlName="years"  class="form-control" type="number" class="form-control">
+                                                                                                                         </div>
+                                                                                                                          <div class="form-group col-md-2">
+                                                                                                                                    <label for="input-12">Meses</label>
+                                                                                                                                    <input formControlName="months"  class="form-control" type="number" class="form-control">
+                                                                                                                         </div>
+                                                                                                                          <div class="form-group col-md-2">
+                                                                                                                                    <label for="input-12">Dias</label>
+                                                                                                                                    <input formControlName="days"  class="form-control" type="number" class="form-control">
+                                                                                                                         </div>
+
+                                                                                                                            
+                                                                                                                </form>  
+                                                                                                    
+                                                                                                </div>
+                                                                                            </div>
+    </div>
               
             </div>
+              <div class="modal-footer">
+                                                                                        <button [disabled]="!licenseForm.valid" (click)="createLicense()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                    </div>
         </div>
     </div>
     </div>

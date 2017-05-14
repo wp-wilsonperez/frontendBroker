@@ -20,6 +20,7 @@ export class UserListComponent {
     public userInfo:any;
     public editForm: FormGroup;
     public userId;
+
     constructor(private userService:UserService,private formBuilder: FormBuilder,public http:Http){
        this.loadUsers();
        this.editForm= this.formBuilder.group({
@@ -66,7 +67,7 @@ export class UserListComponent {
             this.editForm.value.Enabled = 1;
             console.log(this.editForm.value)
             console.log(this.userId);
-            this.http.post('http://localhost:3000/user/'+this.userId+"?AUTH=true",this.editForm.value).toPromise().then(result=>{
+            this.http.post('http://localhost:3000/user/edit/'+this.userId+"?AUTH=true",this.editForm.value).toPromise().then(result=>{
                 console.log(result.json());
                 this.loadUsers();  
             })

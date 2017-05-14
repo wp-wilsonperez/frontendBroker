@@ -26,9 +26,11 @@
                     </div>
                 </div> 
                 <div class="table-responsive datatable">
-                    <table class="table table-striped table-hover table-sm" [mfData]="usersData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                    <table class="table table-striped table-hover table-sm" [mfData]="userData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                         <thead>
                             <tr>
+                                  <th> <mfDefaultSorter by="userImg"></mfDefaultSorter></th> 
+                                <th> <mfDefaultSorter by="userImg"></mfDefaultSorter></th> 
                                 <th> <mfDefaultSorter by="cedula">Cedula</mfDefaultSorter></th>                              
                                 <th><mfDefaultSorter by="name">Nombre</mfDefaultSorter></th>
                                 <th><mfDefaultSorter by="lastName">Apellido</mfDefaultSorter></th>
@@ -39,6 +41,15 @@
                         </thead>
                         <tbody>                           
                             <tr *ngFor="let user of usersData">
+
+                                 <td class="avatar"> 
+
+                                                <img *ngIf="user.userImg != null" src="http://localhost:3000/uploads/user/{{user.userImg}}" alt="" class="img-circle-list user-img"> 
+
+                                     
+                                     </td>
+                                  <td><img *ngIf="user.userImg == null" src="" alt=""></td>
+                                  
                                 <td><strong>  {{user.cedula}}   </strong></td>
                                 <td>{{user.name}}</td>
                                 <td>

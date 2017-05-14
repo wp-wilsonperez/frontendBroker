@@ -30,6 +30,10 @@ export class RolsListComponent {
     public buDelete:boolean = false;
     //
 
+    //modules
+
+    controllers:any;
+
 
 
     constructor(public http:Http){
@@ -39,7 +43,7 @@ export class RolsListComponent {
 
     borrar(id){
 
-        this.http.delete('http://localhost:3000/role/'+id+'?AUTH=true').toPromise().then(result=>{
+        this.http.delete('http://localhost:3000/role/delete/'+id+'?AUTH=true').toPromise().then(result=>{
                 this.loadRols();
                 this.toast = true;
                 this.message ="Rol borrado";
@@ -47,7 +51,7 @@ export class RolsListComponent {
     }
     loadRols(){
 
-        this.http.get('http://localhost:3000/roles?AUTH=true').toPromise().then(result=>{
+        this.http.get('http://localhost:3000/role/list?AUTH=true').toPromise().then(result=>{
             let apiResult = result.json();
             this.rolsData = apiResult.roles;
             console.log(this.rolsData);
@@ -57,14 +61,26 @@ export class RolsListComponent {
 
     }
     checkPermission(id){
-        this.http.get('http://localhost:3000/role/grant/'+id+'?AUTH=true').toPromise().then(result=>{
+
+        
+        
+        this.http.get('http://localhost:3000/role/viewgrant/'+id+'?AUTH=true').toPromise().then(result=>{
             let apiResult = result.json();
             console.log(apiResult);
+            this.controllers = apiResult.module.controllers;        
+           
+
             
         })
         console.log(id);
+        this.userCreate = true;
+    
         
-        
+    }
+
+    show(module){
+            return module.show;
+            
     }
     sendPermission(id){
                 
@@ -140,7 +156,7 @@ export class RolsListComponent {
        let request =  [requestUser,requestRol,requestBussiness]
 
 
-        this.http.post('http://localhost:3000/role/grant/'+id+'?AUTH=true',request).toPromise().then(result=>{
+        this.http.post('http://localhost:3000/role/addgrant/'+id+'?AUTH=true',request).toPromise().then(result=>{
                 //first controller
                 console.log(result.json());
 

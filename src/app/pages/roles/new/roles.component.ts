@@ -27,7 +27,7 @@ export class RolesComponent {
           description: this.rolesForm.value.description
         }    
         console.log(request);
-        this.http.post('http://localhost:3000/role?AUTH=true',request).toPromise().then(result=>{
+        this.http.post('http://localhost:3000/role/add?AUTH=true',request).toPromise().then(result=>{
                 let apiResult = result.json();
                 console.log(apiResult);
                 apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/roles']):null

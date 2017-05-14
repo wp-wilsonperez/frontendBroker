@@ -10,13 +10,13 @@ export class UserService {
     }
 
     userList():Promise<any>{
-        return this.http.get('http://localhost:3000/users?AUTH=true').toPromise().then(result=>{
+        return this.http.get('http://localhost:3000/user/list?AUTH=true').toPromise().then(result=>{
             return result.json()
         })
 
     }
     delete(id:string):Promise<any>{
-       return this.http.delete('http://localhost:3000/user/'+id+'?AUTH=true').toPromise().then(result=>{
+       return this.http.delete('http://localhost:3000/user/delete/'+id+'?AUTH=true').toPromise().then(result=>{
 
              result.json();
         })

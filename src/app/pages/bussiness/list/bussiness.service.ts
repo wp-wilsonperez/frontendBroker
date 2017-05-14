@@ -10,13 +10,13 @@ export class BussinessService {
     }
 
     bussinessList():Promise<any>{
-        return this.http.get('http://localhost:3000/businesses?AUTH=true').toPromise().then(result=>{
+        return this.http.get('http://localhost:3000/business/list?AUTH=true').toPromise().then(result=>{
             return result.json()
         })
 
     }
     delete(id:string):Promise<any>{
-       return this.http.delete('http://localhost:3000/business/'+id+'?AUTH=true').toPromise().then(result=>{
+       return this.http.delete('http://localhost:3000/business/delete/'+id+'?AUTH=true').toPromise().then(result=>{
 
              result.json();
         })

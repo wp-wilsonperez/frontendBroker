@@ -12,18 +12,22 @@ import 'rxjs/add/operator/toPromise';
 })
 export class BussinessComponent { 
   public bussinessForm:FormGroup;
+  public licenseForm:FormGroup;
+  licence:any;
+  licenceKey:any;
   attempt = {
     valid: null
   }
 
 
   constructor(public formBuilder:FormBuilder,public http:Http,public router:Router){
-
+        console.log(this.licence);
+        
         this.bussinessForm= this.formBuilder.group({
-            'ruc':['',Validators.compose([Validators.required])],
+            'ruc':['',Validators.compose([Validators.required,ValidationService.numberValidator])],
             'name':['',Validators.compose([Validators.required])],
             'userMaster': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
-               'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+            'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
             'phone':['',Validators.compose([Validators.required ])],
             'movil':['',Validators.compose([Validators.required])],
             'address':[''],
@@ -35,12 +39,27 @@ export class BussinessComponent {
             'description':['']
 
         },{validator: ValidationService.validacionCedula('userMaster')})
+
+        this.licenseForm= this.formBuilder.group({
+            'years':['',Validators.compose([Validators.required,ValidationService.numberValidator])],
+            'months':['',Validators.compose([Validators.required,ValidationService.numberValidator])],
+            'days':['',Validators.compose([Validators.required,ValidationService.numberValidator])],
+             'dateStart':['',Validators.compose([Validators.required])],
+
+        })
   }
   saveBussiness(){
 
-        if(this.bussinessForm.valid){
+        let request = {
+            idLicense : this.licence
 
-                this.http.post('http://localhost:3000/business?AUTH=true',this.bussinessForm.value).toPromise().then(result=>{
+        }
+        Object.assign(request, this.bussinessForm.value )
+
+        if(this.bussinessForm.valid){
+                console.log(request);
+                
+                this.http.post('http://localhost:3000/business/add?AUTH=true',request).toPromise().then(result=>{
                 let apiResult = result.json();
                 console.log(apiResult);
                 apiResult.msg == "OK"? this.router.navigate(['pages/bussiness/listado']):null
@@ -57,6 +76,15 @@ export class BussinessComponent {
        
         
         
+  }
+  createLicense(){
+  
+    this.http.post('http://localhost:3000/license/add?AUTH=true',this.licenseForm.value).toPromise().then(result=>{
+            let apiResult = result.json();
+            this.licence = apiResult.doc._id;
+            this.licenseForm.value.licence = apiResult.doc._id;
+            this.licenceKey = apiResult.doc.key;
+    })
   }
 
 

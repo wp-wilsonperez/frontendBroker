@@ -26,7 +26,7 @@ export class BussinessListComponent {
             'ruc':['',Validators.compose([Validators.required])],
             'name':['',Validators.compose([Validators.required])],
             'userMaster': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
-               'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+            'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
             'phone':['',Validators.compose([Validators.required ])],
             'movil':['',Validators.compose([Validators.required])],
             'address':[''],
@@ -75,7 +75,7 @@ export class BussinessListComponent {
             this.bussinessForm.value.Enabled = 1;
             console.log(this.bussinessForm.value)
             console.log(this.bId);
-            this.http.post('http://localhost:3000/business/'+this.bId+"?AUTH=true",this.bussinessForm.value).toPromise().then(result=>{
+            this.http.post('http://localhost:3000/business/edit/'+this.bId+"?AUTH=true",this.bussinessForm.value).toPromise().then(result=>{
                 console.log(result.json());
                 this.loadUsers();  
             })

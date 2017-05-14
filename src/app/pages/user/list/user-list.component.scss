@@ -1,5 +1,16 @@
 @import "../../../theme/styles/variables";
 
+.img-circle-list{
+    border-radius: 50%;
+    height: 50px;
+    text-align: center;
+
+}
+.avatar{
+    text-align: center;
+    
+}
+
 .datatable {
     .progress{
         background-color: $gray-light;

@@ -60,9 +60,6 @@
 
                                                                                                     <div href="javascript:void(0);" class="list-group-item list-group-item-action active">
                                                                                                         <div class="col-md-6"> <h5 class="list-group-item-heading"></h5></div>
-                                                                                                        <div class="col-md-2">Crear</div>
-                                                                                                        <div class="col-md-2">Editar</div>
-                                                                                                        <div class="col-md-2">Borrar</div>
                                                                                                      
                                                                                                     
                                                                                                     </div>
@@ -72,85 +69,22 @@
 
                                                                                         
                                                                                                     </div>
-                                                                                                     <div class="list-group-item list-group-item-action"> 
-                                                                                                        <div class="col-md-6"> <h5 class="list-group-item-heading">User</h5></div>
-                                                                                                        <div class="col-md-2"> 
-                                                                                                            <label class="custom-control custom-checkbox">
-
-                                                                                                                            <input type="checkbox" class="custom-control-input checkbox-primary" [(ngModel)]="userCreate" checked>
+                                                                                                 
+                                                                                                 
+                                                                                                    <div *ngFor="let ctrl of controllers" class="list-group-item list-group-item-action"> 
+                                                                                                        
+                                                                                                        
+                                                                                                        <div  class="col-md-2"> <h5 class="list-group-item-heading"> {{show(ctrl)}} </h5></div>
+                                                                                                       
+                                                                                                        <div *ngFor="let action of ctrl.actions"  class="col-md-2"> 
+                                                                                                                 <label class="custom-control custom-checkbox">
+                                                                                                                            <input type="checkbox" class="custom-control-input checkbox-circle" checked>
                                                                                                                             <span class="custom-control-indicator"></span>
-                                                                                                                        
-                                                                                                            </label>
-                                                                                                            </div>
-                                                                                                        <div class="col-md-2">
-                                                                                                           <label class="custom-control custom-checkbox">
-                                                                                                                
-                                                                                                                            <input type="checkbox" class="custom-control-input checkbox-warning" [(ngModel)]="userEdit" checked>
-                                                                                                                            <span class="custom-control-indicator"></span>
-                                                                                                                        
-                                                                                                            </label>
-                                                                                                            </div>
-                                                                                                        <div class="col-md-2">
-                                                                                                            <label class="custom-control custom-checkbox">
-                                                                                                                
-                                                                                                                            <input type="checkbox" class="custom-control-input checkbox-danger" [(ngModel)]="userDelete" checked>
-                                                                                                                            <span class="custom-control-indicator"></span>
-                                                                                                                        
-                                                                                                            </label></div>
-                                                                                                    </div>
-                                                                                                   <div class="list-group-item list-group-item-action"> 
-                                                                                                        <div class="col-md-6"> <h5 class="list-group-item-heading">Rol</h5></div>
-                                                                                                        <div class="col-md-2"> 
-                                                                                                            <label class="custom-control custom-checkbox">
-
-                                                                                                                            <input type="checkbox" class="custom-control-input checkbox-primary" [(ngModel)]="rolCreate" checked>
-                                                                                                                            <span class="custom-control-indicator"></span>
-                                                                                                                        
-                                                                                                            </label>
-                                                                                                            </div>
-                                                                                                        <div class="col-md-2"> 
-                                                                                                            <label class="custom-control custom-checkbox">
-
-                                                                                                                            <input type="checkbox" class="custom-control-input checkbox-warning" [(ngModel)]="rolEdit" checked>
-                                                                                                                            <span class="custom-control-indicator"></span>
-                                                                                                                        
-                                                                                                            </label>
-                                                                                                            </div>
-                                                                                                        <div class="col-md-2"> 
-                                                                                                            <label class="custom-control custom-checkbox">
-
-                                                                                                                            <input type="checkbox" class="custom-control-input checkbox-danger" [(ngModel)]="rolDelete" checked>
-                                                                                                                            <span class="custom-control-indicator"></span>
-                                                                                                                        
-                                                                                                            </label>
-                                                                                                            </div>
-                                                                                                    </div>
-                                                                                                    <div class="list-group-item list-group-item-action"> 
-                                                                                                        <div class="col-md-6"> <h5 class="list-group-item-heading">Bussiness</h5></div>
-                                                                                                        <div class="col-md-2"> 
-                                                                                                            <label class="custom-control custom-checkbox">
-
-                                                                                                                            <input type="checkbox" class="custom-control-input checkbox-primary" [(ngModel)]="buCreate" checked>
-                                                                                                                            <span class="custom-control-indicator"></span>
-                                                                                                                        
-                                                                                                            </label>
-                                                                                                            </div>
-                                                                                                        <div class="col-md-2"> 
-                                                                                                            <label class="custom-control custom-checkbox">
-
-                                                                                                                            <input type="checkbox" class="custom-control-input checkbox-warning" [(ngModel)]="buEdit" checked>
-                                                                                                                            <span class="custom-control-indicator"></span>
-                                                                                                                        
-                                                                                                            </label>
-                                                                                                            </div>
-                                                                                                        <div class="col-md-2"> 
-                                                                                                            <label class="custom-control custom-checkbox">
-
-                                                                                                                            <input type="checkbox" class="custom-control-input checkbox-danger" [(ngModel)]="buDelete" checked>
-                                                                                                                            <span class="custom-control-indicator"></span>
-                                                                                                                        
-                                                                                                            </label>
-                                                                                                            </div>
+                                                                                                                            <span class="custom-control-description">{{action.show}}</span>
+                                                                                                                        </label>
+                                                                                                         </div>
+                                                                                                         
+                                                                                                       
                                                                                                     </div>
                                                                                                 </div>
                                                                                     </div>
