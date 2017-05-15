@@ -149,7 +149,17 @@
                                            
                     </form>
 
-                    <form *ngIf="step.name=='Roles'" [formGroup]="paymentForm" class="row">
+                    <form *ngIf="step.name=='Roles'" [formGroup]="rolForm" class="row">
+
+                        <div class="form-group col-md-12">
+                             <label for="exampleSelect1">Rol de Usuario</label>
+                                <select formControlName="idRol" class="form-control">
+                                    <option *ngFor="let rol of roles" value="{{rol._id}}">{{rol.name}}</option>
+                                  
+                                </select>
+                                 <span class="help-block text-danger" *ngIf="step.hasError && rolForm.get('idRol').hasError('required')">Rol no puede estar Vacio</span>                              
+                            
+                        </div>
              
 
                       

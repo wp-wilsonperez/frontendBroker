@@ -19,11 +19,12 @@ export class UserComponent {
     public steps:any[];
     public accountForm:FormGroup;
     public personalForm:FormGroup;
-    public paymentForm:FormGroup;
+    public rolForm:FormGroup;
     public details:any = {};
     public showConfirm:boolean;
     public imagen:any;
     public imgResult:any;
+    public roles:any;
      @ViewChild(ImageUploaderComponent)
      public  imageComponent: ImageUploaderComponent;
 
@@ -54,15 +55,17 @@ export class UserComponent {
             'direccion' : ['']
         },{validator: ValidationService.validacionCedula('cedula')});
 
-        this.paymentForm = this.formBuilder.group({
-         
-        });        
+        this.rolForm = this.formBuilder.group({
+            'idRol': ['',Validators.compose([Validators.required])],
+        });   
+
+        this.loadRols();     
     }
 
     public next(){
         let accountForm = this.accountForm;
         let personalForm = this.personalForm;
-        let paymentForm = this.paymentForm;
+        let rolForm = this.rolForm;
         
         if(this.steps[this.steps.length-1].active)
             return false;
@@ -95,7 +98,7 @@ export class UserComponent {
                         }                      
                     }
                     if(step.name=='Roles'){
-                        if (paymentForm.valid) {
+                        if (rolForm.valid) {
                             step.active = false;
                             step.valid = true;
                             steps[index+1].active=true;
@@ -136,7 +139,8 @@ export class UserComponent {
             mail: this.details.email,
             phone :   this.details.telefono ,
             dateBirthday : this.details.birthDate,
-            userImg:''
+            userImg:'',
+            idRol: this.rolForm.value.idRol
 
         }
         if(this.imageComponent.file != undefined){
@@ -217,6 +221,16 @@ export class UserComponent {
 
     public confirm(){
         this.steps.forEach(step => step.valid = true);
+    }
+
+    public loadRols(){
+        this.http.get('http://localhost:3000/role/list?AUTH=true').toPromise().then(result=>{
+                let apiResult = result.json();
+                console.log(apiResult);
+                
+                this.roles = apiResult.roles;
+                
+        })
     }
 
    

@@ -22,7 +22,7 @@
                 <div class="w-200 pull-right bottom-15">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                        <input class="form-control" id="table-search-input" [(ngModel)]="searchText" type="text" placeholder="Buscar nombre...">
+                        <input class="form-control" [(ngModel)]="searchTxt" id="table-search-input" (input)="getItems($event)"placeholder="Buscar nombre...">
                     </div>
                 </div> 
                 <div class="table-responsive datatable">

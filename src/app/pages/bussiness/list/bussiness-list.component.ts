@@ -20,6 +20,9 @@ export class BussinessListComponent {
     public userInfo:any;
     public bussinessForm: FormGroup;
     public bId;
+    public searchTxt:any;
+    public listBussinessComplete:any;
+
     constructor(private bussinessService:BussinessService,private formBuilder: FormBuilder,public http:Http){
        this.loadUsers();
         this.bussinessForm= this.formBuilder.group({
@@ -54,6 +57,7 @@ export class BussinessListComponent {
     loadUsers(){
         this.bussinessService.bussinessList().then(result=>{
                     this.usersData = result.businesses;
+                    this.listBussinessComplete = result.businesses;
                     console.log('Bussiness from Api: ',this.usersData);
                     
                     
@@ -79,6 +83,24 @@ export class BussinessListComponent {
                 console.log(result.json());
                 this.loadUsers();  
             })
+            
+    }
+     getItems(event:any){
+            let search = this.searchTxt;
+            let compleList = this.listBussinessComplete;
+            console.log(search);
+
+            let q = search.toLowerCase();
+            let result = compleList.filter(result=>{
+                if(result.name.toLowerCase().indexOf(q) > -1){
+                        return true
+                  }
+            })
+
+            this.usersData = result;
+
+            this.searchTxt == ''?this.usersData = this.listBussinessComplete:null;
+
             
     }
 }
