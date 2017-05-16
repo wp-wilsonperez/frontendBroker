@@ -37,6 +37,14 @@ export class UserSessionService {
             localStorage.setItem('cedula',user.cedula);
             localStorage.setItem('userImg',user.userImg);
     }
+    checkUser(){
+            if (localStorage.getItem('id') == undefined)
+            {
+                return false
+            }else{
+                return true;
+            } 
+    }
 
 
 

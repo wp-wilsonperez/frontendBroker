@@ -1,9 +1,10 @@
 import { UserSessionService } from './../../providers/session.service';
 import { Http } from '@angular/http';
 import { ValidationService } from './../user/new/validation.service';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
+
 
 @Component({
   selector: 'az-login',
@@ -12,7 +13,8 @@ import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from 
   styleUrls: ['./login.component.scss'],
   providers: [UserSessionService]
 })
-export class LoginComponent {  
+export class LoginComponent implements OnInit {
+    
     public router: Router;
     public form:FormGroup;
     public cedula:AbstractControl;
@@ -28,7 +30,15 @@ export class LoginComponent {
 
         this.cedula = this.form.controls['cedula'];
         this.password = this.form.controls['password'];
+          console.log(this.local.checkUser());
+        this.local.checkUser() == true? this.router.navigate(['pages/']):null;
     }
+
+    ngOnInit(){
+      
+        
+         
+    }  
 
     public onSubmit(values:Object):void {
         if (this.form.valid) {
@@ -41,8 +51,8 @@ export class LoginComponent {
                 if(apiResult.login){
                     
                     this.local.setUser(apiResult.user);
-
                     this.router.navigate(['pages/'])
+
                 }else{
 
                 }

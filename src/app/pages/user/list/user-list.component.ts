@@ -23,6 +23,7 @@ export class UserListComponent {
     public searchTxt:any;
     public resultData:any;
     public listUserComplete:any;
+    public today:any;
 
     constructor(private userService:UserService,private formBuilder: FormBuilder,public http:Http,public userSession:UserSessionService){
        this.loadUsers();
@@ -32,7 +33,7 @@ export class UserListComponent {
             'lastName': ['', Validators.required],
             'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
             'phone': ['', Validators.required],
-            'birthDate': [''],
+            'dateBirthday': [''],
             'userImg': [''],
             'mail':['',Validators.compose([Validators.required])]
         },{validator: ValidationService.validacionCedula('cedula')});
@@ -59,10 +60,25 @@ export class UserListComponent {
 
     }
     userDetail(user){
+            var today:any = new Date();
+            var dd:any = today.getDate();
+            var mm:any = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+            if(dd<10){
+                    dd='0'+dd
+                } 
+                if(mm<10){
+                    mm='0'+mm
+                } 
+
+            today = yyyy+'-'+mm+'-'+dd;
+            this.today  = today;
+            console.log(today);
+            
 
         this.userId = user._id;
         console.log(this.userId);
-        this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,phone: user.phone,birthDate: user.dateBirthday,mail:user.mail,userImg:user.userImg});
+        this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,phone: user.phone,dateBirthday: user.dateBirthday,mail:user.mail,userImg:user.userImg});
         
         
         

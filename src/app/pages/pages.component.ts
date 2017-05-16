@@ -1,26 +1,36 @@
+import { Router } from '@angular/router';
+import { UserSessionService } from './../providers/session.service';
 import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
 import { Location } from '@angular/common';
 import { AppState } from '../app.state';
+
+
 
 @Component({
   selector: 'az-pages',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.scss'],
-  providers: [ AppState ]
+  providers: [ AppState,UserSessionService ]
 })
 export class PagesComponent implements OnInit {
 
     public isMenuCollapsed:boolean = false;
   
     constructor(private _state:AppState, 
-                private _location:Location) {
+                private _location:Location,
+                public local:UserSessionService,
+                public router:Router
+                ) {
+        this.local.checkUser()?null:this.router.navigate(['/login']);
         this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
             this.isMenuCollapsed = isCollapsed;
-        });    
+        });  
+      
     }
 
     ngOnInit() {
+         
         this.getCurrentPageName();
     }
 
