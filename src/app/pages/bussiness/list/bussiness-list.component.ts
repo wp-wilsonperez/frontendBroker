@@ -1,3 +1,4 @@
+import { ValidationScheduleService } from './validation.service';
 import { Http } from '@angular/http';
 import { ValidationService } from './../new/validation.service';
 import { Component, ViewEncapsulation } from '@angular/core';
@@ -19,9 +20,13 @@ export class BussinessListComponent {
     public message:string;
     public userInfo:any;
     public bussinessForm: FormGroup;
+    public scheduleForm:FormGroup;
     public bId;
     public searchTxt:any;
     public listBussinessComplete:any;
+    public bussinessId:any;
+    public schedules:any=[];
+    public days:any;
 
     constructor(private bussinessService:BussinessService,private formBuilder: FormBuilder,public http:Http){
        this.loadUsers();
@@ -41,6 +46,25 @@ export class BussinessListComponent {
             'description':['']
 
         },{validator: ValidationService.validacionCedula('userMaster')})
+
+        this.scheduleForm= this.formBuilder.group({
+           'date_start':['',Validators.compose([Validators.required])],
+           'date_end':['',Validators.compose([Validators.required])],
+           'start':['',Validators.compose([Validators.required])],
+           'end':['',Validators.compose([Validators.required])]
+
+        })
+
+        this.days = [
+            '',
+            'Lunes',
+            'Martes',
+            'Miercoles',
+            'Jueves',
+            'Viernes',
+            'Sabado',
+            'Domingo'
+        ]
     
     }
     borrar(id){
@@ -102,5 +126,46 @@ export class BussinessListComponent {
             this.searchTxt == ''?this.usersData = this.listBussinessComplete:null;
 
             
+    }
+    openSchedule(id){
+           this.bussinessId = id;
+           this.http.get('http://localhost:3000/business/viewSchedule/'+this.bussinessId+'?AUTH=true').toPromise().then(result=>{
+               console.log(result.json());
+               let apiResult = result.json();
+               this.schedules = apiResult.schedule;
+               
+           })
+            
+    }
+    addSchedule(){
+       let addFormat = {
+           date_start: this.scheduleForm.value.date_start,
+           date_end:this.scheduleForm.value.date_end,
+           hours:{ 
+                start:this.scheduleForm.value.start,
+                end:this.scheduleForm.value.end
+            }
+                           
+       }
+
+       this.schedules.push(addFormat);
+      
+        
+    }
+    deleteSchedule(id){
+        console.log(id);
+        this.schedules.splice(id);
+        
+    }
+    saveAll(){
+        let request = {
+            schedule: this.schedules
+        }
+
+        this.http.post('http://localhost:3000/business/addSchedule/'+this.bussinessId+'?AUTH=true',request).toPromise().then(result=>{
+                console.log(result.json());
+                this.loadUsers();
+                
+        })
     }
 }

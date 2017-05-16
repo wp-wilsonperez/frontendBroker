@@ -84,76 +84,27 @@ export class RolsListComponent {
     }
     sendPermission(id){
                 
-        let requestUser ={
-            
-            controller:'user',actions:[
-            {
-                name:'create',
-                url:'usuarios/crear'
-            },
-            {
-                name:'list',
-                url:'usuarios/listado'
-            },
-             {
-                name:'edit',
-                url:'usuarios/listado'
-            },
-            {
-                name:'delete',
-                url:'usuarios/listado'
-            }
+   
 
-        ]};  
-        let requestRol ={
-            
-            controller:'rol',
-            
-            actions:[
-            {
-                name:'create',
-                url:'rols/crear'
-            },
-            {
-                name:'list',
-                url:'rols/listado'
-            },
-             {
-                name:'edit',
-                url:'rols/listado'
-            },
-            {
-                name:'delete',
-                url:'rols/listado'
-            }
-
-        ]};
+       let request =  {
+           grant:{
+               user:{
+                   list:'list',
+                 
+               },
+               bussiness:{
+                   list:'list',
+                 
+               },
+               rol:{
+                   list:'list',
+                 
+               }
 
 
-        let requestBussiness ={
-            
-            controller:'bussiness'
-            ,actions:[
-            {
-                name:'create',
-                url:'bussiness/crear'
-            },
-            {
-                name:'list',
-                url:'bussiness/listado'
-            },
-             {
-                name:'edit',
-                url:'bussiness/listado'
-            },
-            {
-                name:'delete',
-                url:'bussiness/listado'
-            }
-
-        ]}; 
-
-       let request =  [requestUser,requestRol,requestBussiness]
+          
+        }
+    }
 
 
         this.http.post('http://localhost:3000/role/addgrant/'+id+'?AUTH=true',request).toPromise().then(result=>{

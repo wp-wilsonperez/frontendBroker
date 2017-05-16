@@ -77,9 +77,10 @@
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading"> {{show(ctrl)}} </h5></div>
                                                                                                        
                                                                                                         <div *ngFor="let action of ctrl.actions"  class="col-md-2"> 
+                                                                                                                
                                                                                                                  <label class="custom-control custom-checkbox">
-                                                                                                                            <input type="checkbox" class="custom-control-input checkbox-circle" checked>
-                                                                                                                            <span class="custom-control-indicator"></span>
+
+                                                                                                                            <input *ngIf="action.show.indexOf() " type="checkbox" class="custom-control-input checkbox-circle" value="ctrl" checked>
                                                                                                                             <span class="custom-control-description">{{action.show}}</span>
                                                                                                                         </label>
                                                                                                          </div>
