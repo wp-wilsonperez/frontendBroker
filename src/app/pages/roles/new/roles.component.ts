@@ -29,9 +29,49 @@ export class RolesComponent {
         console.log(request);
         this.http.post('http://localhost:3000/role/add?AUTH=true',request).toPromise().then(result=>{
                 let apiResult = result.json();
-                console.log(apiResult);
-                apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/roles']):null
-                
+                console.log(apiResult.update[apiResult.update.length -1]);
+                var idRol = apiResult.update[apiResult.update.length -1];
+                        if(apiResult.msg == "OK"){
+                          let req = {
+                              grant:{
+                                    user:{
+                                        list: false,
+                                        create: false,
+                                        delete: false,
+                                        edit:false
+                                      
+                                    },
+                                    bussiness:{
+                                        list:false,
+                                        create:false,
+                                        delete: false,
+                                        edit:false
+                                      
+                                    },
+                                    rol:{
+                                        list: false,
+                                        create: false,
+                                        delete: false,
+                                        edit: false
+                                      
+                                    }
+
+
+                  
+                              }
+                          };
+                         this.http.post('http://localhost:3000/role/addgrant/'+idRol._id+'?AUTH=true',req).toPromise().then(result=>{
+                        //first controller
+                        console.log(result.json());
+
+            
+        })
+
+          
+
+                          
+                          
+                        }               
                 //
                 
         })

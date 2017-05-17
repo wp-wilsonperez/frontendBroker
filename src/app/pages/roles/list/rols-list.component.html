@@ -71,19 +71,90 @@
                                                                                                     </div>
                                                                                                  
                                                                                                  
-                                                                                                    <div *ngFor="let ctrl of controllers" class="list-group-item list-group-item-action"> 
+                                                                                                    <div  class="list-group-item list-group-item-action"> 
                                                                                                         
                                                                                                         
-                                                                                                        <div  class="col-md-2"> <h5 class="list-group-item-heading"> {{show(ctrl)}} </h5></div>
+                                                                                                        <div  class="col-md-2"> <h5 class="list-group-item-heading">User </h5></div>
                                                                                                        
-                                                                                                        <div *ngFor="let action of ctrl.actions"  class="col-md-2"> 
-                                                                                                                
-                                                                                                                 <label class="custom-control custom-checkbox">
-
-                                                                                                                            <input *ngIf="action.show.indexOf() " type="checkbox" class="custom-control-input checkbox-circle" value="ctrl" checked>
-                                                                                                                            <span class="custom-control-description">{{action.show}}</span>
-                                                                                                                        </label>
+                                                                                                        <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="userList" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Listado</span>
+                                                                                                                        
                                                                                                          </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="userCreate" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Crear</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="userEdit" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Editar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="userDelete" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Borrar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                     
+                                                                                                         
+                                                                                                       
+                                                                                                    </div>
+                                                                                                    <div  class="list-group-item list-group-item-action"> 
+                                                                                                        
+                                                                                                        
+                                                                                                        <div  class="col-md-2"> <h5 class="list-group-item-heading">Roles </h5></div>
+                                                                                                       
+                                                                                                        <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="rolList" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Listado</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="rolCreate" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Crear</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="rolEdit" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Editar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="rolDelete" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Borrar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                     
+                                                                                                         
+                                                                                                       
+                                                                                                    </div>
+                                                                                                    <div  class="list-group-item list-group-item-action"> 
+                                                                                                        
+                                                                                                        
+                                                                                                        <div  class="col-md-2"> <h5 class="list-group-item-heading">Empresas </h5></div>
+                                                                                                       
+                                                                                                        <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="buList" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Listado</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="buCreate" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Crear</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="buEdit" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Editar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="buDelete" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Borrar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                     
                                                                                                          
                                                                                                        
                                                                                                     </div>

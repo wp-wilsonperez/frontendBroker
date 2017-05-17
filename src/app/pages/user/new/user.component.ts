@@ -39,7 +39,6 @@ export class UserComponent {
         ]
 
         this.accountForm = this.formBuilder.group({
-            'username': ['', Validators.required],
             'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
             'confirmPassword': ['', Validators.required],
             'email': ['', Validators.compose([Validators.required, ValidationService.emailValidator])]            
@@ -49,7 +48,7 @@ export class UserComponent {
             'name': ['', Validators.required],
             'lastName': ['', Validators.required],
             'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
-            'telefono': ['', Validators.required],
+            'telefono': ['', Validators.compose([Validators.required,ValidationService.numberValidator])],
             'birthDate': [''],
             'imagen': [''],
             'direccion' : ['']

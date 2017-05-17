@@ -16,15 +16,18 @@ export class RolsListComponent {
     public toast:boolean;
     public message:string;
 
-    //checkbox user 
+    //checkbox user
+    public userList:boolean = false; 
     public userCreate:boolean = false;
     public userEdit:boolean = false;
     public userDelete:boolean = false;
-    //checkbox rols 
+    //checkbox rols
+     public rolList:boolean = false; 
     public rolCreate:boolean = false;
     public rolEdit:boolean = false;
     public rolDelete:boolean = false;
-    //checkbox rols 
+    //checkbox Bussiness
+     public buList:boolean = false;
     public buCreate:boolean = false;
     public buEdit:boolean = false;
     public buDelete:boolean = false;
@@ -33,6 +36,7 @@ export class RolsListComponent {
     //modules
 
     controllers:any;
+    grant:any;
 
 
 
@@ -67,13 +71,39 @@ export class RolsListComponent {
         this.http.get('http://localhost:3000/role/viewgrant/'+id+'?AUTH=true').toPromise().then(result=>{
             let apiResult = result.json();
             console.log(apiResult);
-            this.controllers = apiResult.module.controllers;        
+            this.controllers = apiResult.module.controllers;     
+            this.grant = apiResult.grant; 
+            console.log(this.grant);
+
+            this.grant.user.list == true ? this.userList = true: null;
+            this.grant.user.add  == true? this.userCreate = true: null; 
+            this.grant.user.edit == true? this.userEdit = true: null;
+            this.grant.user.delete  == true? this.userDelete = true: null; 
+
+            //roles
+
+            this.grant.rol.list == true ? this.rolList = true: null;
+            this.grant.rol.add   == true ? this.rolCreate = true: null; 
+            this.grant.rol.edit  == true ? this.rolEdit = true: null;
+            this.grant.rol.delete  == true ? this.rolDelete = true: null; 
+
+            //empresas
+
+            this.grant.bussiness.list == true ? this.buList = true: null;
+            this.grant.bussiness.add   == true ? this.buCreate = true: null; 
+            this.grant.bussiness.edit  == true ? this.buEdit = true: null;
+            this.grant.bussiness.delete  == true ? this.buDelete = true: null; 
+
+         
+
+
+              
            
 
             
         })
         console.log(id);
-        this.userCreate = true;
+
     
         
     }
@@ -83,30 +113,34 @@ export class RolsListComponent {
             
     }
     sendPermission(id){
-                
-   
+         let request ={
+             grant:{
+                user:{
+                    list: this.userList,
+                    create: this.userCreate,
+                    delete: this.userDelete,
+                    edit:this.userEdit
+                    
+                },
+                bussiness:{
+                    list: this.buList,
+                    create: this.buCreate,
+                    delete: this.buDelete,
+                    edit: this.buEdit
+                    
+                },
+                rol:{
+                    list: this.rolList,
+                    create: this.rolCreate,
+                    delete: this.rolDelete,
+                    edit: this.rolEdit
+                    
+                }
 
-       let request =  {
-           grant:{
-               user:{
-                   list:'list',
-                 
-               },
-               bussiness:{
-                   list:'list',
-                 
-               },
-               rol:{
-                   list:'list',
-                 
-               }
 
 
-          
-        }
-    }
-
-
+            }
+         }
         this.http.post('http://localhost:3000/role/addgrant/'+id+'?AUTH=true',request).toPromise().then(result=>{
                 //first controller
                 console.log(result.json());
