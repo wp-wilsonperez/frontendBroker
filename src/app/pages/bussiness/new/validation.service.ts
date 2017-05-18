@@ -17,12 +17,60 @@ export class ValidationService {
             }
         }
     }
+    static rucValidator(control): {[key: string]: any} {
+
+        let final = control.value.substr(-3,3);
+
+
+        var onlyNumberRegexp = /.*[^0-9].*/;  
+        if (control.value && onlyNumberRegexp.test(control.value)) {
+            return {invalidRuc: true};
+        }
+         if (control.value.length <  13) {
+            return {invalidRuc: true};
+        }
+   
+        
+        
+        if(final != "001"){
+                return {invalidRuc: true};   
+        }
+     
+       
+    }
 
     static numberValidator(control): {[key: string]: any} {
         var onlyNumberRegexp = /.*[^0-9].*/;  
         if (control.value && onlyNumberRegexp.test(control.value)) {
             return {invalidNumber: true};
         }
+    }
+
+    static phoneValidator(control): {[key: string]: any} {
+
+        var onlyNumberRegexp = /.*[^0-9].*/;  
+        if (control.value && onlyNumberRegexp.test(control.value)) {
+            return {invalidPhone: true};
+        }
+  
+        if (control.value.length <  9) {
+            return {invalidPhone: true};
+        }
+   
+       
+    }
+     static mobileValidator(control): {[key: string]: any} {
+
+        var onlyNumberRegexp = /.*[^0-9].*/;  
+        if (control.value && onlyNumberRegexp.test(control.value)) {
+            return {invalidMobile: true};
+        }
+  
+        if (control.value.length <  10) {
+            return {invalidMobile: true};
+        }
+   
+       
     }
 
     // validacion de cedula
@@ -57,6 +105,10 @@ export class ValidationService {
             var modulo = 11;
             var provincia = cedula.value.substr(0,2);
 
+               if (cedula.value.length <  10) {
+                    return cedula.setErrors({invalidCedula: true})  
+                } 
+
 
             if (provincia < 1 || provincia > 22){           
                         return cedula.setErrors({invalidCedula: true})  
@@ -67,7 +119,8 @@ export class ValidationService {
 
                 return cedula.setErrors({invalidCedula: true})    
                         
-             }  
+             } 
+           
 
                /* Solo para personas naturales (modulo 10) */         
                 if (d3 < 6){           

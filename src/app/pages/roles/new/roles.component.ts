@@ -62,10 +62,12 @@ export class RolesComponent {
                           };
                          this.http.post('http://localhost:3000/role/addgrant/'+idRol._id+'?AUTH=true',req).toPromise().then(result=>{
                         //first controller
-                        console.log(result.json());
+                                  console.log(result.json());
+                                  this.router.navigate(['/pages/usuarios/roles'])
+                        
 
             
-        })
+                            })
 
           
 

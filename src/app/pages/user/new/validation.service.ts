@@ -25,6 +25,35 @@ export class ValidationService {
         }
     }
 
+   static phoneValidator(control): {[key: string]: any} {
+
+        var onlyNumberRegexp = /.*[^0-9].*/;  
+        if (control.value && onlyNumberRegexp.test(control.value)) {
+            return {invalidPhone: true};
+        }
+  
+        if (control.value.length <  7) {
+            return {invalidPhone: true};
+        }
+        if (control.value.length >  10) {
+            return {invalidPhone: true};
+        }
+       
+    }
+
+    static rucValidator(control): {[key: string]: any} {
+
+       
+  
+        if (control.value.length <  7) {
+            return {invalidPhone: true};
+        }
+        if (control.value.length >  10) {
+            return {invalidPhone: true};
+        }
+       
+    }
+
     // validacion de cedula
 
      static validacionCedula(cedulaKey: string) {

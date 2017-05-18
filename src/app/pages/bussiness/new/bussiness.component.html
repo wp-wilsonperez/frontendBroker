@@ -45,17 +45,17 @@
             <span class="help-block text-danger" *ngIf="bussinessForm.get('name').hasError('required') && attempt.valid == false">Nombre no puede estar vacio</span>                             
         </div>
 
-                    <div class="form-group col-md-5" [ngClass]="{'has-danger' : bussinessForm.get('ruc').hasError('required') && attempt.valid == false  || bussinessForm.get('userMaster').hasError('invalidNumber') && attempt.valid == false 
-                    , 'has-success' : !bussinessForm.get('ruc').hasError('required') &&  !bussinessForm.get('ruc').hasError('invalidNumber')}">
+                    <div class="form-group col-md-5" [ngClass]="{'has-danger' : bussinessForm.get('ruc').hasError('required') && attempt.valid == false  || bussinessForm.get('ruc').hasError('invalidRuc') && attempt.valid == false 
+                    , 'has-success' : !bussinessForm.get('ruc').hasError('required') &&  !bussinessForm.get('ruc').hasError('invalidRuc')}">
                         <label class="form-control-label">Ruc</label>
                         <div class="input-group">  
                             <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                            <input formControlName="ruc" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('ruc').hasError('required') && attempt.valid == false ||  bussinessForm.get('ruc').hasError('invalidNumber') && attempt.valid == false,
-                            'form-control-success' :  !bussinessForm.get('ruc').hasError('required') && !bussinessForm.get('ruc').hasError('invalidNumber') }" type="text"> 
+                            <input maxlength="13" formControlName="ruc" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('ruc').hasError('required') && attempt.valid == false ||  bussinessForm.get('ruc').hasError('invalidRuc') && attempt.valid == false,
+                            'form-control-success' :  !bussinessForm.get('ruc').hasError('required') && !bussinessForm.get('ruc').hasError('invalidRuc') }" type="text"> 
                         </div>
                     
                         <span class="help-block text-danger" *ngIf="bussinessForm.get('ruc').hasError('required') && attempt.valid == false">Ruc no puede estar vacio</span>                             
-                          <span class="help-block text-danger" *ngIf="bussinessForm.get('ruc').hasError('invalidNumber') && attempt.valid == false">Ruc puede tener solo numeros</span>                             
+                          <span class="help-block text-danger" *ngIf="bussinessForm.get('ruc').hasError('invalidRuc') && attempt.valid == false">Ruc Invalido</span>                             
                     </div>
 
 
@@ -92,24 +92,25 @@
    
 
 
-   <div class="form-group col-md-5" [ngClass]="{'has-danger' : attempt.valid == false && bussinessForm.get('phone').hasError('required'),
-    'has-success' : !bussinessForm.get('phone').hasError('required') }">
+   <div class="form-group col-md-5" [ngClass]="{'has-danger' : attempt.valid == false && bussinessForm.get('phone').hasError('required') ||  attempt.valid == false && bussinessForm.get('phone').hasError('invalidPhone'),
+    'has-success' : !bussinessForm.get('phone').hasError('required') && !bussinessForm.get('phone').hasError('invalidPhone') }">
             <label class="form-control-label">Telefono</label>
             <div class="input-group">  
                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                <input formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' : attempt.valid == false && bussinessForm.get('phone').hasError('required'), 
+                <input maxlength="9" formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' : attempt.valid == false && bussinessForm.get('phone').hasError('required'), 
                 'form-control-success' :  !bussinessForm.get('phone').hasError('required') }" type="text"> 
             </div>
         
-            <span class="help-block text-danger" *ngIf=" attempt.valid == false && bussinessForm.get('ruc').hasError('required')">Telefono no puede estar vacio</span>                             
+            <span class="help-block text-danger" *ngIf=" attempt.valid == false && bussinessForm.get('phone').hasError('required')">Telefono no puede estar vacio</span>                             
+             <span class="help-block text-danger" *ngIf=" attempt.valid == false && bussinessForm.get('phone').hasError('invalidPhone')">Telefono Invalido</span>                             
         </div>
 
 
-        <div class="form-group col-md-5" [ngClass]="{'has-danger' : attempt.valid == false && bussinessForm.get('movil').hasError('required'), 'has-success' : !bussinessForm.get('movil').hasError('required') }">
+        <div class="form-group col-md-5" [ngClass]="{'has-danger' : attempt.valid == false && bussinessForm.get('movil').hasError('required'), 'has-success' : !bussinessForm.get('movil').hasError('required') && !bussinessForm.get('movil').hasError('invalidMobile') }">
             <label class="form-control-label">Telefono Movil</label>
             <div class="input-group">  
                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                <input formControlName="movil" class="form-control" [ngClass]="{'form-control-danger' : attempt.valid == false && bussinessForm.get('movil').hasError('required'), 'form-control-success' :  !bussinessForm.get('movil').hasError('required') }" type="text"> 
+                <input maxlength="10" formControlName="movil" class="form-control" [ngClass]="{'form-control-danger' : attempt.valid == false && bussinessForm.get('movil').hasError('required') , 'form-control-success' :  !bussinessForm.get('movil').hasError('required') && !bussinessForm.get('movil').hasError('invalidMobile') }" type="text"> 
             </div>
         
             <span class="help-block text-danger" *ngIf=" attempt.valid == false && bussinessForm.get('movil').hasError('required')">Telefono Movil no puede estar vacio</span>                             
@@ -207,7 +208,7 @@
                                                                                            
                                                                                                 <div class="card-block widget-body">
                                                                                                         <form  [formGroup]="licenseForm"class="row">
-                                                                                                                     <div class="form-group col-md-5">
+                                                                                                                     <div class="form-group col-md-4">
                                                                                                                                     <label for="input-12">Fecha de Inicio</label>
                                                                                                                                     <input  class="form-control" formControlName="dateStart" type="date" class="form-control">
                                                                                                                          </div>
@@ -222,6 +223,10 @@
                                                                                                                           <div class="form-group col-md-2">
                                                                                                                                     <label for="input-12">Dias</label>
                                                                                                                                     <input formControlName="days"  class="form-control" type="number" class="form-control">
+                                                                                                                         </div>
+                                                                                                                         <div class="form-group col-md-2">
+                                                                                                                                    <label for="input-2">Usuarios</label>
+                                                                                                                                    <input formControlName="numberUsers"  class="form-control" type="number" class="form-control">
                                                                                                                          </div>
 
                                                                                                                             

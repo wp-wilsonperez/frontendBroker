@@ -111,15 +111,15 @@
                             <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('cedula').hasError('invalidCedula')">Cedula Invalida</span>                            
                         </div>
 
-                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && personalForm.get('telefono').hasError('required') || (step.hasError && personalForm.get('telefono').hasError('invalidNumber')), 'has-success' : !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidNumber') && !personalForm.get('telefono').hasError('minLength') }">
+                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && personalForm.get('telefono').hasError('required') || (step.hasError && personalForm.get('telefono').hasError('invalidPhone')), 'has-success' : !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidPhone') }">
                             <label class="form-control-label">Telefono</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-phone"></i></div>
                                 
-                                <input maxlength="7" formControlName="telefono" class="form-control" [ngClass]="{'form-control-danger' : personalForm.get('telefono').hasError('invalidNumber') || personalForm.get('telefono').hasError('required') || (personalForm.get('telefono').hasError('minLength')), 'form-control-success' :  !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidNumber') }"> 
+                                <input maxlength="10" formControlName="telefono" class="form-control" [ngClass]="{'form-control-danger' : personalForm.get('telefono').hasError('invalidPhone') || personalForm.get('telefono').hasError('required') , 'form-control-success' :  !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidPhone') }"> 
                             </div>
                             <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('telefono').hasError('required')">Telefono esta vacio</span>                             
-                            <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('telefono').hasError('invalidNumber')">Telefono puede tener solo numeros</span>                             
+                            <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('telefono').hasError('invalidPhone')">Telefono puede tener solo numeros</span>                             
                             <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('telefono').hasError('minLength')">Telefono  debe tener minimo 6 caracteres</span>                             
                         </div>
 

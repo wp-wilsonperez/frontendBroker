@@ -24,12 +24,12 @@ export class BussinessComponent {
         console.log(this.licence);
         
         this.bussinessForm= this.formBuilder.group({
-            'ruc':['',Validators.compose([Validators.required,ValidationService.numberValidator])],
+            'ruc':['',Validators.compose([Validators.required,ValidationService.rucValidator])],
             'name':['',Validators.compose([Validators.required])],
             'userMaster': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
             'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-            'phone':['',Validators.compose([Validators.required ])],
-            'movil':['',Validators.compose([Validators.required])],
+            'phone':['',Validators.compose([Validators.required,ValidationService.phoneValidator ])],
+            'movil':['',Validators.compose([Validators.required,ValidationService.mobileValidator])],
             'address':[''],
             'constitutionDate':['',Validators.compose([Validators.required])],
             'parking':[''],
@@ -45,6 +45,7 @@ export class BussinessComponent {
             'months':['',Validators.compose([Validators.required,ValidationService.numberValidator])],
             'days':['',Validators.compose([Validators.required,ValidationService.numberValidator])],
              'dateStart':['',Validators.compose([Validators.required])],
+             'numberUsers':['',Validators.compose([Validators.required])]
 
         })
   }
@@ -78,6 +79,8 @@ export class BussinessComponent {
         
   }
   createLicense(){
+
+      
   
     this.http.post('http://localhost:3000/license/add?AUTH=true',this.licenseForm.value).toPromise().then(result=>{
             let apiResult = result.json();

@@ -52,7 +52,7 @@ export class UserComponent {
             'name': ['', Validators.required],
             'lastName': ['', Validators.required],
             'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
-            'telefono':['',Validators.minLength(9)],
+            'telefono':['',Validators.compose([ValidationService.phoneValidator])],
             'birthDate': [''],
             'imagen': [''],
             'direccion' : ['',Validators.compose([Validators.required])]
