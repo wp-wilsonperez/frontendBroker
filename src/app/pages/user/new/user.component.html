@@ -11,6 +11,13 @@
                 </div>        
             </div>
             <div class="card-block widget-body">
+                <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Verificar campos en rojo</strong>
+                  
+                </div>
                 <div class="row">
                     <div *ngFor="let step of steps; let last = last" class="col-md-3 col-sm-6 col-12 step" [class.active]="step.active" [class.valid]="step.valid" [ngClass]="{'last' : last }">
                         <div class="step-icon">
@@ -104,15 +111,16 @@
                             <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('cedula').hasError('invalidCedula')">Cedula Invalida</span>                            
                         </div>
 
-                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && personalForm.get('telefono').hasError('required') || (step.hasError && personalForm.get('telefono').hasError('invalidNumber')), 'has-success' : !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidNumber') }">
+                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && personalForm.get('telefono').hasError('required') || (step.hasError && personalForm.get('telefono').hasError('invalidNumber')), 'has-success' : !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidNumber') && !personalForm.get('telefono').hasError('minLength') }">
                             <label class="form-control-label">Telefono</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-phone"></i></div>
                                 
-                                <input formControlName="telefono" class="form-control" [ngClass]="{'form-control-danger' : personalForm.get('telefono').hasError('invalidNumber') || personalForm.get('telefono').hasError('required'), 'form-control-success' :  !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidNumber') }" type="text"> 
+                                <input maxlength="7" formControlName="telefono" class="form-control" [ngClass]="{'form-control-danger' : personalForm.get('telefono').hasError('invalidNumber') || personalForm.get('telefono').hasError('required') || (personalForm.get('telefono').hasError('minLength')), 'form-control-success' :  !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidNumber') }"> 
                             </div>
                             <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('telefono').hasError('required')">Telefono esta vacio</span>                             
                             <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('telefono').hasError('invalidNumber')">Telefono puede tener solo numeros</span>                             
+                            <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('telefono').hasError('minLength')">Telefono  debe tener minimo 6 caracteres</span>                             
                         </div>
 
                         </div>
@@ -131,9 +139,11 @@
 
                         
                         
-                        <div class="form-group col-md-12" >
+                        <div class="form-group col-md-12" [ngClass]="{'has-danger' : step.hasError && personalForm.get('direccion').hasError('required'),
+                                                                      'has-success': !personalForm.get('direccion').hasError('required')}">
                             <label class="form-control-label">Direccion</label>
-                            <textarea formControlName="direccion" class="form-control"></textarea>
+                            <textarea [ngClass]="{'form-control-danger': personalForm.get('direccion').hasError('required') , 'form-control-success': !personalForm.get('direccion').hasError('required')}" formControlName="direccion" class="form-control"></textarea>
+                              <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('direccion').hasError('required')">Direccion no puede estar Vacia</span>                             
                         </div> 
                         
          
@@ -168,10 +178,24 @@
 
                         <div class="col-2"><strong class="text-truncate">Nombre Completo:</strong></div>
                         <div class="col-10"><i>{{details.fullname}}</i></div>
-                        <div class="col-2"><strong class="text-truncate">Cedula:</strong></div>
-                        <div class="col-10"><i>{{details.cedula}}</i></div>
-                        <div class="col-2"><strong class="text-truncate">Email:</strong></div>
-                        <div class="col-10"><i>{{details.email}}</i></div>
+
+                        <div class="col-2 " *ngIf="errorList.cedula == undefined"><strong class="text-truncate">Cedula:</strong></div>
+                        <div class="col-10" *ngIf="errorList.cedula == undefined"><i>{{details.cedula}}</i></div>
+
+                        <div class="col-2 text-danger " *ngIf="errorList.cedula != undefined"><strong class="text-truncate">Cedula:</strong></div>
+                        <div class="col-10 text-danger " *ngIf="errorList.cedula != undefined"><i>{{details.cedula}} (Cedula ya registrada  ) </i></div>
+
+
+
+                        <div class="col-2" *ngIf="errorList.mail == undefined"><strong class="text-truncate">Email:</strong></div>
+                        <div class="col-10" *ngIf="errorList.mail == undefined"><i>{{details.email}}</i></div>
+
+                         <div class="col-2 text-danger"  *ngIf="errorList.mail != undefined"><strong class="text-truncate">Email:</strong></div>
+                        <div class="col-10 text-danger"  *ngIf="errorList.mail != undefined"><i>{{details.email}} (Email ya registrado)</i></div>
+
+
+
+
                         <div class="col-2"><strong class="text-truncate">Telefono:</strong></div>
                         <div class="col-10"><i>{{details.telefono}}</i></div>
                         <div class="col-2"><strong class="text-truncate">Fecha de Nacimiento:</strong></div>

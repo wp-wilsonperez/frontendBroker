@@ -25,6 +25,10 @@ export class UserComponent {
     public imagen:any;
     public imgResult:any;
     public roles:any;
+    public error:boolean = false;
+    public message:string = '';
+    public errorList:any={};
+
      @ViewChild(ImageUploaderComponent)
      public  imageComponent: ImageUploaderComponent;
 
@@ -48,10 +52,10 @@ export class UserComponent {
             'name': ['', Validators.required],
             'lastName': ['', Validators.required],
             'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
-            'telefono': ['', Validators.compose([Validators.required,ValidationService.numberValidator])],
+            'telefono':['',Validators.minLength(9)],
             'birthDate': [''],
             'imagen': [''],
-            'direccion' : ['']
+            'direccion' : ['',Validators.compose([Validators.required])]
         },{validator: ValidationService.validacionCedula('cedula')});
 
         this.rolForm = this.formBuilder.group({
@@ -155,8 +159,21 @@ export class UserComponent {
                       request.userImg = this.imgResult.userImg;
                       console.log(request);
                       this.http.post('http://localhost:3000/user/add?AUTH=true',request).toPromise().then(result=>{
+
                              let apiResult = result.json();
+                             console.log(apiResult);
+                             
                              apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/listado']):null;
+                             if(apiResult.msg == "ERR"){
+
+                                 this.error = true;
+                                 this.message = apiResult.err.message;
+                                 this.errorList = apiResult.err.errors;
+                                 console.log('hay un error');
+                                 
+
+                             }
+
 
                       })
                       
@@ -169,7 +186,19 @@ export class UserComponent {
              console.log(request);
                       this.http.post('http://localhost:3000/user/add?AUTH=true',request).toPromise().then(result=>{
                              let apiResult = result.json();
+                             console.log(apiResult);
+                             
                              apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/listado']):null;
+                             if(apiResult.msg == "ERR"){
+
+                                 this.error = true;
+                                 this.message = apiResult.err.message;
+                                 this.errorList = apiResult.err.errors;
+                                 console.log('hay un error');
+                                 
+
+                             }
+                 
 
                       })
 
