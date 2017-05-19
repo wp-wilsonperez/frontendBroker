@@ -1,3 +1,4 @@
+import { UserSessionService } from './../../../providers/session.service';
 import { Http } from '@angular/http';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { UserService } from './dynamic-tables.service';
@@ -37,17 +38,21 @@ export class RolsListComponent {
 
     controllers:any;
     grant:any;
+    userSession:any;
 
 
 
-    constructor(public http:Http){
+    constructor(public http:Http,public local:UserSessionService){
+        this.userSession = this.local.getUser();
+        console.log(this.userSession);
+        
         this.loadRols();
       
     } 
 
     borrar(id){
 
-        this.http.delete('http://localhost:3000/role/delete/'+id+'?AUTH=true').toPromise().then(result=>{
+        this.http.delete('http://localhost:3000/role/delete/'+id+'?access_token='+this.userSession.token).toPromise().then(result=>{
                 this.loadRols();
                 this.toast = true;
                 this.message ="Rol borrado";
@@ -55,7 +60,7 @@ export class RolsListComponent {
     }
     loadRols(){
 
-        this.http.get('http://localhost:3000/role/list?AUTH=true').toPromise().then(result=>{
+        this.http.get('http://localhost:3000/role/list?access_token='+this.userSession.token).toPromise().then(result=>{
             let apiResult = result.json();
             this.rolsData = apiResult.roles;
             console.log(this.rolsData);
@@ -68,7 +73,7 @@ export class RolsListComponent {
 
         
         
-        this.http.get('http://localhost:3000/role/viewgrant/'+id+'?AUTH=true').toPromise().then(result=>{
+        this.http.get('http://localhost:3000/role/viewgrant/'+id+'?access_token='+this.userSession.token).toPromise().then(result=>{
             let apiResult = result.json();
             console.log(apiResult);
             this.controllers = apiResult.module.controllers;     
@@ -141,7 +146,7 @@ export class RolsListComponent {
 
             }
          }
-        this.http.post('http://localhost:3000/role/addgrant/'+id+'?AUTH=true',request).toPromise().then(result=>{
+        this.http.post('http://localhost:3000/role/addgrant/'+id+'?access_token='+this.userSession.token,request).toPromise().then(result=>{
                 //first controller
                 console.log(result.json());
 

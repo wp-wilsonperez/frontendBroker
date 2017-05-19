@@ -1,3 +1,4 @@
+import { UserSessionService } from './../../../providers/session.service';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { FormBuilder, Validators,FormControl,FormGroup,AbstractControl } from '@angular/forms';
@@ -11,10 +12,10 @@ import 'rxjs/add/operator/toPromise';
 })
 export class RolesComponent { 
   public rolesForm:FormGroup;
+  userSession : any;
 
-
-  constructor(public formBuilder:FormBuilder,public http:Http,public router:Router){
-
+  constructor(public formBuilder:FormBuilder,public http:Http,public router:Router,public local:UserSessionService){
+        this.userSession = this.local.getUser();
         this.rolesForm= this.formBuilder.group({
             'name':['',Validators.compose([Validators.required])],
             'description':['',Validators.compose([Validators.required])]
@@ -27,7 +28,7 @@ export class RolesComponent {
           description: this.rolesForm.value.description
         }    
         console.log(request);
-        this.http.post('http://localhost:3000/role/add?AUTH=true',request).toPromise().then(result=>{
+        this.http.post('http://localhost:3000/role/add?access_token='+this.userSession.token,request).toPromise().then(result=>{
                 let apiResult = result.json();
                 console.log(apiResult.update[apiResult.update.length -1]);
                 var idRol = apiResult.update[apiResult.update.length -1];
@@ -60,7 +61,7 @@ export class RolesComponent {
                   
                               }
                           };
-                         this.http.post('http://localhost:3000/role/addgrant/'+idRol._id+'?AUTH=true',req).toPromise().then(result=>{
+                         this.http.post('http://localhost:3000/role/addgrant/'+idRol._id+'?access_token='+this.userSession.token,req).toPromise().then(result=>{
                         //first controller
                                   console.log(result.json());
                                   this.router.navigate(['/pages/usuarios/roles'])

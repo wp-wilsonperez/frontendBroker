@@ -1,3 +1,4 @@
+import { UserSessionService } from './../../../providers/session.service';
 import { ValidationScheduleService } from './validation.service';
 import { Http } from '@angular/http';
 import { ValidationService } from './../new/validation.service';
@@ -27,8 +28,10 @@ export class BussinessListComponent {
     public bussinessId:any;
     public schedules:any=[];
     public days:any;
+    public userSession:any;
 
-    constructor(private bussinessService:BussinessService,private formBuilder: FormBuilder,public http:Http){
+    constructor(private bussinessService:BussinessService,private formBuilder: FormBuilder,public http:Http,public local:UserSessionService){
+        this.userSession = this.local.getUser();
        this.loadUsers();
         this.bussinessForm= this.formBuilder.group({
             'ruc':['',Validators.compose([Validators.required])],
@@ -103,7 +106,7 @@ export class BussinessListComponent {
             this.bussinessForm.value.Enabled = 1;
             console.log(this.bussinessForm.value)
             console.log(this.bId);
-            this.http.post('http://localhost:3000/business/edit/'+this.bId+"?AUTH=true",this.bussinessForm.value).toPromise().then(result=>{
+            this.http.post('http://localhost:3000/business/edit/'+this.bId+"?access_token="+this.userSession.token,this.bussinessForm.value).toPromise().then(result=>{
                 console.log(result.json());
                 this.loadUsers();  
             })
@@ -129,7 +132,7 @@ export class BussinessListComponent {
     }
     openSchedule(id){
            this.bussinessId = id;
-           this.http.get('http://localhost:3000/business/viewSchedule/'+this.bussinessId+'?AUTH=true').toPromise().then(result=>{
+           this.http.get('http://localhost:3000/business/viewSchedule/'+this.bussinessId+'?access_token='+this.userSession.token).toPromise().then(result=>{
                console.log(result.json());
                let apiResult = result.json();
                this.schedules = apiResult.schedule;
@@ -162,7 +165,7 @@ export class BussinessListComponent {
             schedule: this.schedules
         }
 
-        this.http.post('http://localhost:3000/business/addSchedule/'+this.bussinessId+'?AUTH=true',request).toPromise().then(result=>{
+        this.http.post('http://localhost:3000/business/addSchedule/'+this.bussinessId+'?access_token='+this.userSession.token,request).toPromise().then(result=>{
                 console.log(result.json());
                 this.loadUsers();
                 

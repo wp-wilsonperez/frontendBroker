@@ -1,3 +1,4 @@
+import { UserSessionService } from './../../../providers/session.service';
 import { ValidationService } from './validation.service';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
@@ -15,12 +16,14 @@ export class BussinessComponent {
   public licenseForm:FormGroup;
   licence:any;
   licenceKey:any;
+  userSession:any;
   attempt = {
     valid: null
   }
 
 
-  constructor(public formBuilder:FormBuilder,public http:Http,public router:Router){
+  constructor(public formBuilder:FormBuilder,public http:Http,public router:Router,public local:UserSessionService){
+        this.userSession = this.local.getUser();
         console.log(this.licence);
         
         this.bussinessForm= this.formBuilder.group({
@@ -30,7 +33,7 @@ export class BussinessComponent {
             'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
             'phone':['',Validators.compose([Validators.required,ValidationService.phoneValidator ])],
             'movil':['',Validators.compose([Validators.required,ValidationService.mobileValidator])],
-            'address':[''],
+            'address':['',Validators.compose([Validators.required])],
             'constitutionDate':['',Validators.compose([Validators.required])],
             'parking':[''],
             'numberEmp':['',Validators.compose([Validators.required])],
@@ -60,7 +63,7 @@ export class BussinessComponent {
         if(this.bussinessForm.valid){
                 console.log(request);
                 
-                this.http.post('http://localhost:3000/business/add?AUTH=true',request).toPromise().then(result=>{
+                this.http.post('http://localhost:3000/business/add?access_token='+this.userSession.token,request).toPromise().then(result=>{
                 let apiResult = result.json();
                 console.log(apiResult);
                 apiResult.msg == "OK"? this.router.navigate(['pages/bussiness/listado']):null
@@ -82,7 +85,7 @@ export class BussinessComponent {
 
       
   
-    this.http.post('http://localhost:3000/license/add?AUTH=true',this.licenseForm.value).toPromise().then(result=>{
+    this.http.post('http://localhost:3000/license/add?access_token='+this.userSession.token,this.licenseForm.value).toPromise().then(result=>{
             let apiResult = result.json();
             this.licence = apiResult.doc._id;
             this.licenseForm.value.licence = apiResult.doc._id;

@@ -18,6 +18,7 @@ export class UserSessionService {
                                 id: localStorage.getItem('id'),
                                 cedula: localStorage.getItem('cedula'),
                                 userImg: localStorage.getItem('userImg'),
+                                 token: localStorage.getItem('token'),
                    }
                    return returnValue;
             } else{
@@ -36,6 +37,7 @@ export class UserSessionService {
             localStorage.setItem('lastName',user.lastName);
             localStorage.setItem('cedula',user.cedula);
             localStorage.setItem('userImg',user.userImg);
+            localStorage.setItem('token',user.token);
     }
     checkUser(){
             if (localStorage.getItem('id') == undefined)

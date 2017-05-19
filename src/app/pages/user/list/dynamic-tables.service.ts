@@ -1,22 +1,24 @@
+import { UserSessionService } from './../../../providers/session.service';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class UserService { 
-
-    constructor(public http:Http){
+    local:any;
+    constructor(public http:Http,public userSession:UserSessionService){
+        this.local = this.userSession.getUser();
 
     }
 
     userList():Promise<any>{
-        return this.http.get('http://localhost:3000/user/list?AUTH=true').toPromise().then(result=>{
+        return this.http.get('http://localhost:3000/user/list?access_token='+this.local.token).toPromise().then(result=>{
             return result.json()
         })
 
     }
     delete(id:string):Promise<any>{
-       return this.http.delete('http://localhost:3000/user/delete/'+id+'?AUTH=true').toPromise().then(result=>{
+       return this.http.delete('http://localhost:3000/user/delete/'+id+'?access_token='+this.local.token).toPromise().then(result=>{
 
              result.json();
         })

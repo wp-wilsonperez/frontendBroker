@@ -1,3 +1,4 @@
+import { UserSessionService } from './../../../providers/session.service';
 import { Observable } from 'rxjs/Observable';
 import { ImageUploaderComponent } from './../image-uploader/image-uploader.component';
 import { Router } from '@angular/router';
@@ -28,11 +29,12 @@ export class UserComponent {
     public error:boolean = false;
     public message:string = '';
     public errorList:any={};
+    public userSession:any;
 
      @ViewChild(ImageUploaderComponent)
      public  imageComponent: ImageUploaderComponent;
 
-    constructor(private formBuilder: FormBuilder,public http:Http,public router:Router) {   
+    constructor(private formBuilder: FormBuilder,public http:Http,public router:Router,public local:UserSessionService) {   
 
         this.steps = [
           {name: 'Informacion de Cuenta', icon: 'fa-lock', active: true, valid: false, hasError:false },
@@ -60,7 +62,10 @@ export class UserComponent {
 
         this.rolForm = this.formBuilder.group({
             'idRol': ['',Validators.compose([Validators.required])],
-        });   
+        }); 
+
+        this.userSession = this.local.getUser();
+          
 
         this.loadRols();     
     }
@@ -148,17 +153,17 @@ export class UserComponent {
         }
         if(this.imageComponent.file != undefined){
 
-                    console.log(this.imageComponent.file);
+                 console.log(this.imageComponent.file);
 
                   
-                  this.makeFileRequest('http://localhost:3000/user/adduserImg?AUTH=true',this.imageComponent.file).map(res => {
+                  this.makeFileRequest('http://localhost:3000/user/adduserImg?access_token='+this.userSession.token,this.imageComponent.file).map(res => {
                       return (res);
                   }).subscribe(result=>{
                       this.imgResult = result;
                       console.log(this.imgResult.userImg);
                       request.userImg = this.imgResult.userImg;
                       console.log(request);
-                      this.http.post('http://localhost:3000/user/add?AUTH=true',request).toPromise().then(result=>{
+                      this.http.post('http://localhost:3000/user/add?access_token='+this.userSession.token,request).toPromise().then(result=>{
 
                              let apiResult = result.json();
                              console.log(apiResult);
@@ -184,7 +189,7 @@ export class UserComponent {
         }else{
 
              console.log(request);
-                      this.http.post('http://localhost:3000/user/add?AUTH=true',request).toPromise().then(result=>{
+                      this.http.post('http://localhost:3000/user/add?access_token='+this.userSession.token,request).toPromise().then(result=>{
                              let apiResult = result.json();
                              console.log(apiResult);
                              
@@ -252,7 +257,8 @@ export class UserComponent {
     }
 
     public loadRols(){
-        this.http.get('http://localhost:3000/role/list?AUTH=true').toPromise().then(result=>{
+       
+        this.http.get('http://localhost:3000/role/list?access_token='+this.userSession.token).toPromise().then(result=>{
                 let apiResult = result.json();
                 console.log(apiResult);
                 

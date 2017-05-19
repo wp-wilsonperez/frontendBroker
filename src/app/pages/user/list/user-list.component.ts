@@ -5,6 +5,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { UserService } from './dynamic-tables.service';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 
+
 @Component({
   selector: 'az-dynamic-tables',
   encapsulation: ViewEncapsulation.None,
@@ -24,8 +25,10 @@ export class UserListComponent {
     public resultData:any;
     public listUserComplete:any;
     public today:any;
+    public local:any;
 
     constructor(private userService:UserService,private formBuilder: FormBuilder,public http:Http,public userSession:UserSessionService){
+        this.local = this.userSession.getUser(); 
        this.loadUsers();
        
        this.editForm= this.formBuilder.group({
@@ -89,7 +92,7 @@ export class UserListComponent {
             this.editForm.value.Enabled = 1;
             console.log(this.editForm.value)
             console.log(this.userId);
-            this.http.post('http://localhost:3000/user/edit/'+this.userId+"?AUTH=true",this.editForm.value).toPromise().then(result=>{
+            this.http.post('http://localhost:3000/user/edit/'+this.userId+"?access_token="+this.local.token,this.editForm.value).toPromise().then(result=>{
                 console.log(result.json());
                 this.loadUsers(); 
                 let sessionSave ={
