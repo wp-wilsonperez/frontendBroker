@@ -12,6 +12,8 @@ export class UserSessionService {
 
     getUser(){
             if (this.info == undefined){
+                    
+                    
                    let returnValue = {
                                 name: localStorage.getItem('name'),
                                 lastName: localStorage.getItem('lastName'),
@@ -19,6 +21,7 @@ export class UserSessionService {
                                 cedula: localStorage.getItem('cedula'),
                                 userImg: localStorage.getItem('userImg'),
                                  token: localStorage.getItem('token'),
+                                grant: JSON.parse(localStorage.getItem('grant'))
                    }
                    return returnValue;
             } else{
@@ -38,6 +41,9 @@ export class UserSessionService {
             localStorage.setItem('cedula',user.cedula);
             localStorage.setItem('userImg',user.userImg);
             localStorage.setItem('token',user.token);
+            localStorage.setItem('grant', JSON.stringify(user.grant));
+  
+            
     }
     checkUser(){
             if (localStorage.getItem('id') == undefined)

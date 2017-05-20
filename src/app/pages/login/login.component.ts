@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     public cedula:AbstractControl;
     public password:AbstractControl;
     public loginErr:boolean= false;
+    public user:any;
 
     constructor(router:Router, fb:FormBuilder,public http:Http,public local:UserSessionService) {
         this.router = router;
@@ -49,9 +50,24 @@ export class LoginComponent implements OnInit {
                 console.log(apiResult);
 
                 if(apiResult.login){
+
+                    let id = apiResult.user.idRol;
+                    let token = apiResult.user.token
+                    this.user = apiResult.user;
+
+                    this.http.get('http://localhost:3000/role/viewgrant/'+id+'?access_token='+token).toPromise().then(result=>{
+                       let  rolResult = result.json();
+                       Object.assign(this.user,rolResult);
+                        this.local.setUser(this.user);
+                        this.router.navigate(['pages/'])
+                        
+
+                       
+
+                        
+                    })
                     
-                    this.local.setUser(apiResult.user);
-                    this.router.navigate(['pages/'])
+            
 
                 }else{
 

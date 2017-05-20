@@ -33,41 +33,41 @@
                     </div>
                         
                     <form *ngIf="step.name=='Informacion de Cuenta'" [formGroup]="accountForm" class="row">
-                             <div class="form-group col-md-12" [ngClass]="{'has-danger' : (step.hasError && accountForm.get('email').hasError('required')) || (step.hasError && accountForm.get('email').hasError('invalidEmail')), 
+                             <div class="form-group col-md-12" [ngClass]="{'has-danger' : (accountForm.get('email').value != '' && accountForm.get('email').hasError('required')) || (accountForm.get('email').value != '' && accountForm.get('email').hasError('invalidEmail')), 
                                                             'has-success' : !accountForm.get('email').hasError('required') && !accountForm.get('email').hasError('invalidEmail')}">
                             <label class="form-control-label">Email</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                <input formControlName="email" class="form-control" [ngClass]="{'form-control-danger' : (step.hasError && accountForm.get('email').hasError('required')) || (step.hasError && accountForm.get('email').hasError('invalidEmail')), 
+                                <input formControlName="email" class="form-control" [ngClass]="{'form-control-danger' : (accountForm.get('email').value != '' && accountForm.get('email').hasError('required')) || (accountForm.get('email').value != '' && accountForm.get('email').hasError('invalidEmail')), 
                                                                                                 'form-control-success' :  !accountForm.get('email').hasError('required') && !accountForm.get('email').hasError('invalidEmail')}" type="text">                      
                             </div>
-                            <span class="help-block text-danger" *ngIf="step.hasError && accountForm.get('email').hasError('required')">Email is required</span>                              
-                            <span class="help-block text-danger" *ngIf="step.hasError && accountForm.get('email').hasError('invalidEmail')">Invalid email address</span>
+                            <span class="help-block text-danger" *ngIf="accountForm.get('email').value != '' && accountForm.get('email').hasError('required')">Email is required</span>                              
+                            <span class="help-block text-danger" *ngIf="accountForm.get('email').value != '' && accountForm.get('email').hasError('invalidEmail')">Email Invlido</span>
                         </div>
                 
 
-                        <div class="form-group col-md-12" [ngClass]="{'has-danger' : (step.hasError && accountForm.get('password').hasError('required')) || (step.hasError && accountForm.get('password').hasError('minlength')), 
+                        <div class="form-group col-md-12" [ngClass]="{'has-danger' : (accountForm.get('password').value != '' && accountForm.get('password').hasError('required')) || (accountForm.get('password').value != ''&& accountForm.get('password').hasError('minlength')), 
                                                                      'has-success' : !accountForm.get('password').hasError('required') && !accountForm.get('password').hasError('minlength')}">
                             <label class="form-control-label">Contrasena</label> 
                             <div class="input-group"> 
                                 <div class="input-group-addon"><i class="fa fa-key"></i></div>                       
-                                <input formControlName="password" class="form-control" [ngClass]="{'form-control-danger' : (step.hasError && accountForm.get('password').hasError('required')) || (step.hasError && accountForm.get('password').hasError('minlength')),                                                                                                        
+                                <input formControlName="password" class="form-control" [ngClass]="{'form-control-danger' : (accountForm.get('password').value != '' && accountForm.get('password').hasError('required')) || (accountForm.get('password').value != '' && accountForm.get('password').hasError('minlength')),                                                                                                        
                                 'form-control-success' : !accountForm.get('password').hasError('required') && !accountForm.get('password').hasError('minlength')}" type="password">
                             </div>
-                            <span class="help-block text-danger" *ngIf="step.hasError && accountForm.get('password').hasError('required')">Contrasena es Necesaria</span>                              
-                            <span class="help-block text-danger" *ngIf="step.hasError && accountForm.get('password').hasError('minlength')">La contrasena debe tener minimo 6 caracteres</span>                            
+                            <span class="help-block text-danger" *ngIf="accountForm.get('password').value != '' && accountForm.get('password').hasError('required')">Contrasena es Necesaria</span>                              
+                            <span class="help-block text-danger" *ngIf="accountForm.get('password').value != '' && accountForm.get('password').hasError('minlength')">La contrasena debe tener minimo 6 caracteres</span>                            
                         </div>
 
-                        <div class="form-group col-md-12" [ngClass]="{'has-danger' : (step.hasError && accountForm.get('confirmPassword').hasError('required')) || (step.hasError && accountForm.get('confirmPassword').hasError('mismatchedPasswords')), 
+                        <div class="form-group col-md-12" [ngClass]="{'has-danger' : (accountForm.get('confirmPassword').value != '' && accountForm.get('confirmPassword').hasError('required')) || (accountForm.get('confirmPassword').value != '' && accountForm.get('confirmPassword').hasError('mismatchedPasswords')), 
                                                                      'has-success' : !accountForm.get('confirmPassword').hasError('required') && !accountForm.get('confirmPassword').hasError('mismatchedPasswords')}">
                             <label class="form-control-label">Confirmar Contrasena</label>                              
                             <div class="input-group"> 
                                 <div class="input-group-addon"><i class="fa fa-key"></i></div>     
-                                <input formControlName="confirmPassword" class="form-control" [ngClass]="{'form-control-danger' : (step.hasError && accountForm.get('confirmPassword').hasError('required')) || (step.hasError && accountForm.get('confirmPassword').hasError('mismatchedPasswords')), 
+                                <input formControlName="confirmPassword" class="form-control" [ngClass]="{'form-control-danger' : (accountForm.get('confirmPassword').value != '' && accountForm.get('confirmPassword').hasError('required')) || (accountForm.get('confirmPassword').value != '' && accountForm.get('confirmPassword').hasError('mismatchedPasswords')), 
                                                                                                           'form-control-success' : !accountForm.get('confirmPassword').hasError('required') && !accountForm.get('confirmPassword').hasError('mismatchedPasswords')}" type="password" >
                             </div>
-                            <span class="help-block text-danger" *ngIf="step.hasError && accountForm.get('confirmPassword').hasError('required')">Contrasena no puede ser vacio</span>                              
-                            <span class="help-block text-danger" *ngIf="step.hasError && accountForm.get('confirmPassword').hasError('mismatchedPasswords')">Contrasenas no son iguales</span> 
+                            <span class="help-block text-danger" *ngIf="accountForm.get('confirmPassword').value != '' && accountForm.get('confirmPassword').hasError('required')">Contrasena no puede ser vacio</span>                              
+                            <span class="help-block text-danger" *ngIf="accountForm.get('confirmPassword').value != '' && accountForm.get('confirmPassword').hasError('mismatchedPasswords')">Contrasenas no son iguales</span> 
                         </div>
 
                    
@@ -77,14 +77,14 @@
 
                     <form *ngIf="step.name=='Informacion Personal'" [formGroup]="personalForm" class="row">
                         <div class="col-md-8">
-                        <div class="form-group " [ngClass]="{'has-danger' : step.hasError && personalForm.get('name').hasError('required'), 'has-success' : !personalForm.get('name').hasError('required') }">
+                        <div class="form-group " [ngClass]="{'has-danger' : personalForm.get('name').value != '' && personalForm.get('name').hasError('required'), 'has-success' : !personalForm.get('name').hasError('required') }">
                             <label class="form-control-label">Nombre</label>
                             <div class="input-group">
                                       <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
                                      <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('name').hasError('required'), 'form-control-success' :  !personalForm.get('name').hasError('required') }" type="text"> 
                             </div>
                            
-                            <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('name').hasError('required')">Nombre no puede estar vacio</span>                             
+                            <span class="help-block text-danger" *ngIf="personalForm.get('name').value != '' && personalForm.get('name').hasError('required')">Nombre no puede estar vacio</span>                             
                         </div>
 
                         <div class="form-group" [ngClass]="{'has-danger' : step.hasError && personalForm.get('lastName').hasError('required'), 'has-success' : !personalForm.get('lastName').hasError('required') }">
@@ -97,30 +97,30 @@
                             <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('lastName').hasError('required')">Apellido no puede estar vacio</span>                             
                         </div>
                                            
-                        <div class="form-group" [ngClass]="{'has-danger' : (step.hasError && personalForm.get('cedula').hasError('required')) || (step.hasError && personalForm.get('cedula').hasError('minlength')) || (step.hasError && personalForm.get('cedula').hasError('invalidNumber')) || (step.hasError && personalForm.get('cedula').hasError('invalidCedula')), 
+                        <div class="form-group" [ngClass]="{'has-danger' : (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('required')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('minlength')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidNumber')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidCedula')), 
                                                                      'has-success' : !personalForm.get('cedula').hasError('required') && !personalForm.get('cedula').hasError('minlength') && !personalForm.get('cedula').hasError('invalidNumber') && !personalForm.get('cedula').hasError('invalidCedula') }">
                             <label class="form-control-label">Cedula</label> 
                             <div class="input-group"> 
                                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
-                                <input formControlName="cedula" class="form-control" [ngClass]="{'form-control-danger' : (step.hasError && personalForm.get('cedula').hasError('required')) || (step.hasError && personalForm.get('cedula').hasError('minlength')) || (step.hasError && personalForm.get('cedula').hasError('invalidNumber')) || (step.hasError && personalForm.get('cedula').hasError('invalidCedula')),                                                                                                        
+                                <input formControlName="cedula" class="form-control" [ngClass]="{'form-control-danger' : (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('required')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('minlength')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidNumber')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidCedula')),                                                                                                        
                                 'form-control-success' : !personalForm.get('cedula').hasError('required') && !personalForm.get('cedula').hasError('minlength') && !personalForm.get('cedula').hasError('invalidNumber') && !personalForm.get('cedula').hasError('invlidCedula')}" type="text" maxlength="10">
                             </div>
-                            <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('cedula').hasError('required')">Cedula es Necesaria</span>                              
-                            <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('cedula').hasError('minlength')">La cedula debe tener  10 caracteres</span>                            
-                            <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('cedula').hasError('invalidNumber')">La cedula debe tener solo numeros</span> 
-                            <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('cedula').hasError('invalidCedula')">Cedula Invalida</span>                            
+                            <span class="help-block text-danger" *ngIf="personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('required')">Cedula es Necesaria</span>                              
+                            <span class="help-block text-danger" *ngIf="personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('minlength')">La cedula debe tener  10 caracteres</span>                            
+                            <span class="help-block text-danger" *ngIf="personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidNumber')">La cedula debe tener solo numeros</span> 
+                            <span class="help-block text-danger" *ngIf="personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidCedula')">Cedula Invalida</span>                            
                         </div>
 
-                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && personalForm.get('telefono').hasError('required') || (step.hasError && personalForm.get('telefono').hasError('invalidPhone')), 'has-success' : !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidPhone') }">
+                        <div class="form-group" [ngClass]="{'has-danger' : personalForm.get('telefono').value != '' && personalForm.get('telefono').hasError('required') || (personalForm.get('telefono').value != '' && personalForm.get('telefono').hasError('invalidPhone')), 'has-success' : !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidPhone') }">
                             <label class="form-control-label">Telefono</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-phone"></i></div>
                                 
-                                <input maxlength="10" formControlName="telefono" class="form-control" [ngClass]="{'form-control-danger' : personalForm.get('telefono').hasError('invalidPhone') || personalForm.get('telefono').hasError('required') , 'form-control-success' :  !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidPhone') }"> 
+                                <input maxlength="10" formControlName="telefono" class="form-control" [ngClass]="{'form-control-danger' : personalForm.get('telefono').value != '' &&  personalForm.get('telefono').hasError('invalidPhone') || personalForm.get('telefono').value != '' &&  personalForm.get('telefono').hasError('required') , 'form-control-success' :  !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidPhone') }"> 
                             </div>
-                            <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('telefono').hasError('required')">Telefono esta vacio</span>                             
-                            <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('telefono').hasError('invalidPhone')">Telefono puede tener solo numeros</span>                             
-                            <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('telefono').hasError('minLength')">Telefono  debe tener minimo 6 caracteres</span>                             
+                            <span class="help-block text-danger" *ngIf="personalForm.get('telefono').value != '' &&  personalForm.get('telefono').hasError('required')">Telefono esta vacio</span>                             
+                            <span class="help-block text-danger" *ngIf="personalForm.get('telefono').value != '' &&  personalForm.get('telefono').hasError('invalidPhone')">Telefono Invalido</span>                             
+                            <span class="help-block text-danger" *ngIf="personalForm.get('telefono').value != '' &&  personalForm.get('telefono').hasError('minLength')">Telefono  debe tener minimo 6 caracteres</span>                             
                         </div>
 
                         </div>

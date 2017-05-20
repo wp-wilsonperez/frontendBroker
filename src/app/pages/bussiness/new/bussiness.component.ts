@@ -17,6 +17,9 @@ export class BussinessComponent {
   licence:any;
   licenceKey:any;
   userSession:any;
+  message:any;
+  error:any;
+  errorList:any={};
   attempt = {
     valid: null
   }
@@ -67,6 +70,17 @@ export class BussinessComponent {
                 let apiResult = result.json();
                 console.log(apiResult);
                 apiResult.msg == "OK"? this.router.navigate(['pages/bussiness/listado']):null
+                if(apiResult.msg == "ERR"){
+
+                                 this.error = true;
+                                 this.message = apiResult.err.message;
+                                 this.errorList = apiResult.err.errors;
+                                 console.log('hay un error');
+                                 
+
+                             }
+
+
                 
                 //
                 

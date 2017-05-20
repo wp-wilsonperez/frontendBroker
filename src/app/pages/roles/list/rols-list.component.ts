@@ -27,11 +27,19 @@ export class RolsListComponent {
     public rolCreate:boolean = false;
     public rolEdit:boolean = false;
     public rolDelete:boolean = false;
+    public rolGrantAdd:boolean = false;
+    public rolGrantView:boolean = false;
     //checkbox Bussiness
      public buList:boolean = false;
     public buCreate:boolean = false;
     public buEdit:boolean = false;
     public buDelete:boolean = false;
+
+     //checkbox Licence
+     public liList:boolean = false;
+    public liCreate:boolean = false;
+    public liEdit:boolean = false;
+    public liDelete:boolean = false;
     //
 
     //modules
@@ -79,26 +87,53 @@ export class RolsListComponent {
             this.controllers = apiResult.module.controllers;     
             this.grant = apiResult.grant; 
             console.log(this.grant);
+            if(this.grant.user != undefined){
 
-            this.grant.user.list == true ? this.userList = true: null;
-            this.grant.user.add  == true? this.userCreate = true: null; 
-            this.grant.user.edit == true? this.userEdit = true: null;
-            this.grant.user.delete  == true? this.userDelete = true: null; 
+                this.grant.user.list == true ? this.userList = true: null;
+                this.grant.user.add  == true? this.userCreate = true: null; 
+                this.grant.user.edit == true? this.userEdit = true: null;
+                this.grant.user.delete  == true? this.userDelete = true: null; 
+
+
+            }
+            
 
             //roles
+            if(this.grant.role != undefined){
+                     this.grant.role.list == true ? this.rolList = true: null;
+                    this.grant.role.add   == true ? this.rolCreate = true: null; 
+                    this.grant.role.edit  == true ? this.rolEdit = true: null;
+                    this.grant.role.delete  == true ? this.rolDelete = true: null; 
+                    this.grant.role.grantview  == true ? this.rolGrantView = true: null; 
+                    this.grant.role.grantadd  == true ? this.rolGrantAdd = true: null; 
 
-            this.grant.rol.list == true ? this.rolList = true: null;
-            this.grant.rol.add   == true ? this.rolCreate = true: null; 
-            this.grant.rol.edit  == true ? this.rolEdit = true: null;
-            this.grant.rol.delete  == true ? this.rolDelete = true: null; 
+             }
+            
 
             //empresas
+             if(this.grant.business != undefined){
+                 this.grant.business.list == true ? this.buList = true: null;
+                this.grant.business.add   == true ? this.buCreate = true: null; 
+                this.grant.business.edit  == true ? this.buEdit = true: null;
+                this.grant.business.delete  == true ? this.buDelete = true: null; 
 
-            this.grant.bussiness.list == true ? this.buList = true: null;
-            this.grant.bussiness.add   == true ? this.buCreate = true: null; 
-            this.grant.bussiness.edit  == true ? this.buEdit = true: null;
-            this.grant.bussiness.delete  == true ? this.buDelete = true: null; 
 
+             }
+
+            
+
+               //licences
+            if(this.grant.licence != undefined){
+                this.grant.licence.list == true ? this.liList = true: null;
+                this.grant.licence.add   == true ? this.liCreate = true: null; 
+                this.grant.licence.edit  == true ? this.liEdit = true: null;
+                this.grant.licence.delete  == true ? this.liDelete = true: null; 
+
+
+
+            }
+
+            
          
 
 
@@ -122,23 +157,36 @@ export class RolsListComponent {
              grant:{
                 user:{
                     list: this.userList,
-                    create: this.userCreate,
+                    add: this.userCreate,
                     delete: this.userDelete,
                     edit:this.userEdit
                     
                 },
-                bussiness:{
+                business:{
                     list: this.buList,
-                    create: this.buCreate,
+                   
+                    add: this.buCreate,
                     delete: this.buDelete,
                     edit: this.buEdit
                     
                 },
-                rol:{
+                role:{
                     list: this.rolList,
-                    create: this.rolCreate,
+                  
+                    add: this.rolCreate,
                     delete: this.rolDelete,
-                    edit: this.rolEdit
+                    edit: this.rolEdit,
+                    grantview : this.rolGrantView,
+                    grantadd : this.rolGrantAdd,
+                    
+                },
+                 licence:{
+                    list: this.liList,
+                  
+                    add: this.liCreate,
+                    delete: this.liDelete,
+                    edit: this.liEdit,
+              
                     
                 }
 

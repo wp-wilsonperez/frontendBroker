@@ -13,6 +13,13 @@
             </div>
             
             <div class="card-block widget-body">
+         <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Verificar campos en rojo</strong>
+                  
+                </div>
         <div class="form-group col-md-12">
                     <div class="input-group">
                         <span class="input-group-btn">
@@ -27,6 +34,7 @@
                       
                     </div>
          </div>
+        
          
                 
         <form [formGroup]="bussinessForm" class="row">
@@ -45,17 +53,18 @@
             <span class="help-block text-danger" *ngIf="bussinessForm.get('name').hasError('required') && bussinessForm.get('name').value != ''">Nombre no puede estar vacio</span>                             
         </div>
 
-                    <div class="form-group col-md-5" [ngClass]="{'has-danger' : bussinessForm.get('ruc').hasError('required') && bussinessForm.get('ruc').value != ''  || bussinessForm.get('ruc').hasError('invalidRuc') && bussinessForm.get('ruc').value != ''  
+                    <div class="form-group col-md-5" [ngClass]="{'has-danger' : bussinessForm.get('ruc').hasError('required') && bussinessForm.get('ruc').value != ''  || bussinessForm.get('ruc').hasError('invalidRuc') && bussinessForm.get('ruc').value != '' || errorList.ruc != undefined  
                     , 'has-success' : !bussinessForm.get('ruc').hasError('required') &&  !bussinessForm.get('ruc').hasError('invalidRuc')}">
                         <label class="form-control-label">Ruc</label>
                         <div class="input-group">  
                             <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                            <input maxlength="13" formControlName="ruc" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('ruc').hasError('required')  ||  bussinessForm.get('ruc').hasError('invalidRuc'),
+                            <input maxlength="13" formControlName="ruc" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('ruc').hasError('required')  ||  bussinessForm.get('ruc').hasError('invalidRuc') || errorList.ruc != undefined,
                             'form-control-success' :  !bussinessForm.get('ruc').hasError('required') && !bussinessForm.get('ruc').hasError('invalidRuc') }" type="text"> 
                         </div>
                     
                         <span class="help-block text-danger" *ngIf="bussinessForm.get('ruc').hasError('required') && bussinessForm.get('ruc').value != ''">Ruc no puede estar vacio</span>                             
                           <span class="help-block text-danger" *ngIf="bussinessForm.get('ruc').hasError('invalidRuc') && bussinessForm.get('ruc').value != ''">Ruc Invalido</span>                             
+                          <span class="help-block text-danger" *ngIf="errorList.ruc != undefined">Ruc Ya ha sido Registrado</span>                             
                     </div>
 
 

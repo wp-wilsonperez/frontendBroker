@@ -32,7 +32,7 @@ export class ValidationService {
             return {invalidPhone: true};
         }
   
-        if (control.value.length <  7) {
+        if (control.value.length <  8) {
             return {invalidPhone: true};
         }
         if (control.value.length >  10) {
