@@ -21,7 +21,7 @@ export class UserSessionService {
                                 cedula: localStorage.getItem('cedula'),
                                 userImg: localStorage.getItem('userImg'),
                                  token: localStorage.getItem('token'),
-                                grant: JSON.parse(localStorage.getItem('grant'))
+           
                    }
                    return returnValue;
             } else{
