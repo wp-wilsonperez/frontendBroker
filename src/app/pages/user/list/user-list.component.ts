@@ -126,5 +126,9 @@ export class UserListComponent {
 
             
     }
+      idAssign(id){
+            console.log(id);
+            
+    }
 }
 

@@ -168,7 +168,7 @@ export class UserComponent {
                              let apiResult = result.json();
                              console.log(apiResult);
                              
-                          //   apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/listado']):null;
+                            apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/listado']):null;
                              if(apiResult.msg == "ERR"){
 
                                  this.error = true;
@@ -193,7 +193,7 @@ export class UserComponent {
                              let apiResult = result.json();
                              console.log(apiResult);
                              
-                            // apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/listado']):null;
+                         apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/listado']):null;
                              if(apiResult.msg == "ERR"){
 
                                  this.error = true;
@@ -266,6 +266,7 @@ export class UserComponent {
                 
         })
     }
+  
 
    
 }
