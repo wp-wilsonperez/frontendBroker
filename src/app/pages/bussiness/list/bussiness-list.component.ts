@@ -18,6 +18,7 @@ export class BussinessListComponent {
     public usersData:any;
     public searchText:string;
     public toast:boolean;
+    public error:boolean;
     public message:string;
     public userInfo:any;
     public bussinessForm: FormGroup;
@@ -29,6 +30,7 @@ export class BussinessListComponent {
     public schedules:any=[];
     public days:any;
     public userSession:any;
+    public modalError:any;
 
     constructor(private bussinessService:BussinessService,private formBuilder: FormBuilder,public http:Http,public local:UserSessionService){
         this.userSession = this.local.getUser();
@@ -71,11 +73,18 @@ export class BussinessListComponent {
     
     }
     borrar(id){
-       this.bussinessService.delete(id).then(result=>{
 
-            this.loadUsers();
-            this.toast = true;
-            this.message ="Bussiness Borrado";
+
+       this.bussinessService.delete(id).then(result=>{
+            let apiResult = result;
+            if(apiResult.msg == "OK"){
+                   this.usersData = apiResult.update;
+                   this.toast = true;
+                   this.message = "Empresa Borrada"
+               }else{
+                   this.error = true;
+                   this.message = "No tiene privilegios para borrar empresas"
+               }
 
            
        });
@@ -107,8 +116,16 @@ export class BussinessListComponent {
             console.log(this.bussinessForm.value)
             console.log(this.bId);
             this.http.post('http://localhost:3000/business/edit/'+this.bId+"?access_token="+this.userSession.token,this.bussinessForm.value).toPromise().then(result=>{
-                console.log(result.json());
-                this.loadUsers();  
+                let apiResult = result.json();
+               if(apiResult.msg == "OK"){
+                   this.usersData = apiResult.update;
+                   this.toast = true;
+                   this.message = "Empresa editada"
+               }else{
+                   this.error = true;
+                   this.message = "No tiene privilegios para editar empresas"
+               }
+               
             })
             
     }
@@ -135,7 +152,12 @@ export class BussinessListComponent {
            this.http.get('http://localhost:3000/business/viewSchedule/'+this.bussinessId+'?access_token='+this.userSession.token).toPromise().then(result=>{
                console.log(result.json());
                let apiResult = result.json();
-               this.schedules = apiResult.schedule;
+               if(apiResult.msg=="OK"){
+                    this.schedules = apiResult.schedule;
+               }else{
+                   this.modalError = true;
+               }
+               
                
            })
             

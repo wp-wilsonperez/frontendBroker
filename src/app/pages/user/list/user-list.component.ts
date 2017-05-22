@@ -26,6 +26,8 @@ export class UserListComponent {
     public listUserComplete:any;
     public today:any;
     public local:any;
+    public error;
+    public modalError;
 
     constructor(private userService:UserService,private formBuilder: FormBuilder,public http:Http,public userSession:UserSessionService){
         this.local = this.userSession.getUser(); 
@@ -52,6 +54,11 @@ export class UserListComponent {
                this.toast = true;
                this.message ="Usuario Borrado";
                this.usersData = apiResult.update;
+           }else{
+                this.error = true;
+               this.message ="No tiene privilegios para borrar usuarios";
+            
+
            }
            
        })
@@ -86,6 +93,8 @@ export class UserListComponent {
 
         this.userId = user._id;
         console.log(this.userId);
+        console.log(user);
+        
         this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,phone: user.phone,dateBirthday: user.dateBirthday,mail:user.mail,userImg:user.userImg});
         
         
@@ -98,17 +107,17 @@ export class UserListComponent {
             console.log(this.editForm.value)
             console.log(this.userId);
             this.http.post('http://localhost:3000/user/edit/'+this.userId+"?access_token="+this.local.token,this.editForm.value).toPromise().then(result=>{
-                console.log(result.json());
-                this.loadUsers(); 
-                let sessionSave ={
-                    id: this.userId,
-                    name: this.editForm.value.name,
-                    lastName: this.editForm.value.lastName,
-                    cedula:this.editForm.value.cedula,
-                    userImg: this.editForm.value.userImg,
+                let apiResult = result.json(); 
 
+                if(apiResult.msg == "OK"){
+                        this.usersData = apiResult.update;
+                }else{
+                    this.error = true;
+                    this.message = "No tiene privilegios de editar usuario"
                 }
-                this.userSession.setUser(sessionSave)
+
+                
+          
                  
             })
             

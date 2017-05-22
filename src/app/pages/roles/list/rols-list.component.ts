@@ -17,6 +17,8 @@ export class RolsListComponent {
     public toast:boolean;
     public message:string;
     public idRol;
+    public modalError:boolean = false;
+    public error:boolean = false;
 
     //checkbox user
     public userList:boolean = false; 
@@ -107,7 +109,9 @@ export class RolsListComponent {
                let  apiResult = result.json();
                console.log(apiResult);
                apiResult.msg == "OK"?this.rolsData = apiResult.update:null;
-
+               if (apiResult.msg == 'ERR'){
+                   this.error = true;
+               }
                
         })
     }
@@ -135,6 +139,8 @@ idAssign(id){
         this.http.get('http://localhost:3000/role/viewgrant/'+id+'?access_token='+this.userSession.token).toPromise().then(result=>{
             let apiResult = result.json();
             console.log(apiResult);
+            if(apiResult.msg == "OK"){   
+
             this.controllers = apiResult.module.controllers;     
             this.grant = apiResult.grant; 
             console.log(this.grant);
@@ -186,6 +192,11 @@ idAssign(id){
 
             }
 
+
+            }else{
+                this.modalError = true;
+            }
+         
             
          
 

@@ -20,7 +20,7 @@ export class BussinessService {
     delete(id:string):Promise<any>{
        return this.http.delete('http://localhost:3000/business/delete/'+id+'?access_token='+this.userSession.token).toPromise().then(result=>{
 
-             result.json();
+            return result.json();
         })
     }
 

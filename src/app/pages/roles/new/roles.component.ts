@@ -13,6 +13,8 @@ import 'rxjs/add/operator/toPromise';
 export class RolesComponent { 
   public rolesForm:FormGroup;
   userSession : any;
+  toast:boolean = false;
+  message:string = '';
 
   constructor(public formBuilder:FormBuilder,public http:Http,public router:Router,public local:UserSessionService){
         this.userSession = this.local.getUser();
@@ -30,6 +32,8 @@ export class RolesComponent {
         console.log(request);
         this.http.post('http://localhost:3000/role/add?access_token='+this.userSession.token,request).toPromise().then(result=>{
                 let apiResult = result.json();
+                console.log(apiResult);
+                
                         if(apiResult.msg == "OK"){
                              console.log(apiResult.update[apiResult.update.length -1]);
                                 var idRol = apiResult.update[apiResult.update.length -1];
@@ -68,6 +72,9 @@ export class RolesComponent {
 
                           
                           
+                        }else{
+                              this.toast = true;
+                              this.message = "No tiene permisos para agregar rol"
                         }               
                 //
                 

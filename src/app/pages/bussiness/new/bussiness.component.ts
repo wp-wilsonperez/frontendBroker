@@ -19,6 +19,7 @@ export class BussinessComponent {
   userSession:any;
   message:any;
   error:any;
+  toast:any;
   errorList:any={};
   attempt = {
     valid: null
@@ -101,9 +102,19 @@ export class BussinessComponent {
   
     this.http.post('http://localhost:3000/license/add?access_token='+this.userSession.token,this.licenseForm.value).toPromise().then(result=>{
             let apiResult = result.json();
-            this.licence = apiResult.doc._id;
-            this.licenseForm.value.licence = apiResult.doc._id;
-            this.licenceKey = apiResult.doc.key;
+            if(apiResult.msg =="OK"){
+              this.licence = apiResult.doc._id;
+              this.licenseForm.value.licence = apiResult.doc._id;
+              this.licenceKey = apiResult.doc.key;
+
+            }else{
+              this.toast = true;
+              this.message = 'Su usuario no tiene privilegios de crear licencia'
+            }
+            
+    }).catch(err=>{
+      console.log(err);
+      
     })
   }
 
