@@ -42,14 +42,19 @@ export class UserListComponent {
         },{validator: ValidationService.validacionCedula('cedula')});
     }
     borrar(id){
-       this.userService.delete(id).then(result=>{
-            let apiResult = result.json();
-            this.usersData = apiResult.update;
-            this.toast = true;
-            this.message ="Usuario borrado";
 
+        
+      this.http.delete('http://localhost:3000/user/delete/'+this.userId+'?access_token='+this.local.token).toPromise().then(result=>{
+           let apiResult = result.json();
+           console.log(apiResult);
            
-       });
+           if(apiResult.msg == "OK"){
+               this.toast = true;
+               this.message ="Usuario Borrado";
+               this.usersData = apiResult.update;
+           }
+           
+       })
        
     } 
     loadUsers(){
@@ -128,7 +133,8 @@ export class UserListComponent {
     }
 
     idAssign(id){
-            console.log(id);
+            this.userId = id;
+            console.log(this.userId);
             
     }
      

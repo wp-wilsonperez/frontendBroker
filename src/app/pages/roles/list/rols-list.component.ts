@@ -16,6 +16,7 @@ export class RolsListComponent {
     public searchText:string;
     public toast:boolean;
     public message:string;
+    public idRol;
 
     //checkbox user
     public userList:boolean = false; 
@@ -100,17 +101,20 @@ export class RolsListComponent {
 
     borrar(id){
   
-            console.log(id);
+            console.log(this.idRol);
             
-        this.http.delete('http://localhost:3000/role/delete/'+id+'?access_token='+this.userSession.token).toPromise().then(result=>{
-                let apiResult = result.json();
-                this.rolsData = apiResult.update;
-                this.toast = true;
-                this.message ="Rol borrado";
+        this.http.delete('http://localhost:3000/role/delete/'+this.idRol+'?access_token='+this.userSession.token).toPromise().then(result=>{
+               let  apiResult = result.json();
+               console.log(apiResult);
+               apiResult.msg == "OK"?this.rolsData = apiResult.update:null;
+
+               
         })
     }
 idAssign(id){
-            console.log(id);
+            this.idRol = id;
+            console.log(this.idRol);
+            
             
     }
     loadRols(){
@@ -192,6 +196,7 @@ idAssign(id){
             
         })
         console.log(id);
+        this.idRol = id;
 
     
         
@@ -202,6 +207,8 @@ idAssign(id){
             
     }
     sendPermission(id){
+        console.log(this.idRol);
+        
 
         let requestTwo={user:{},business:{},role:{},license:{}};
 
@@ -235,7 +242,7 @@ idAssign(id){
         let request ={
             grant: requestTwo
         }
-        this.http.post('http://localhost:3000/role/addgrant/'+id+'?access_token='+this.userSession.token,request).toPromise().then(result=>{
+        this.http.post('http://localhost:3000/role/addgrant/'+this.idRol+'?access_token='+this.userSession.token,request).toPromise().then(result=>{
                 //first controller
                 console.log(result.json());
 

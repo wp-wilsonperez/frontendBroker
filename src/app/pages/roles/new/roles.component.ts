@@ -30,31 +30,25 @@ export class RolesComponent {
         console.log(request);
         this.http.post('http://localhost:3000/role/add?access_token='+this.userSession.token,request).toPromise().then(result=>{
                 let apiResult = result.json();
-                console.log(apiResult.update[apiResult.update.length -1]);
-                var idRol = apiResult.update[apiResult.update.length -1];
                         if(apiResult.msg == "OK"){
+                             console.log(apiResult.update[apiResult.update.length -1]);
+                                var idRol = apiResult.update[apiResult.update.length -1];
                           let req = {
                               grant:{
                                     user:{
-                                        list: false,
-                                        create: false,
-                                        delete: false,
-                                        edit:false
+                                    
                                       
                                     },
-                                    bussiness:{
-                                        list:false,
-                                        create:false,
-                                        delete: false,
-                                        edit:false
+                                    business:{
+                                   
                                       
                                     },
-                                    rol:{
-                                        list: false,
-                                        create: false,
-                                        delete: false,
-                                        edit: false
+                                    role:{
+                                   
                                       
+                                    },
+                                    license:{
+
                                     }
 
 
