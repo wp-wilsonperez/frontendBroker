@@ -43,8 +43,8 @@ export class UserListComponent {
     }
     borrar(id){
        this.userService.delete(id).then(result=>{
-
-            this.loadUsers();
+            let apiResult = result.json();
+            this.usersData = apiResult.update;
             this.toast = true;
             this.message ="Usuario borrado";
 
@@ -126,9 +126,11 @@ export class UserListComponent {
 
             
     }
-      idAssign(id){
+
+    idAssign(id){
             console.log(id);
             
     }
+     
 }
 

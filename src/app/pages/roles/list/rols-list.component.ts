@@ -40,6 +40,12 @@ export class RolsListComponent {
     public liCreate:boolean = false;
     public liEdit:boolean = false;
     public liDelete:boolean = false;
+
+     //checkbox schedules
+     public scheView:boolean = false;
+    public scheCreate:boolean = false;
+    public scheEdit:boolean = false;
+    public scheDelete:boolean = false;
     //
 
     //modules
@@ -53,6 +59,7 @@ export class RolsListComponent {
     constructor(public http:Http,public local:UserSessionService){
         this.userSession = this.local.getUser();
         console.log(this.userSession);
+     
         
         this.loadRols();
       
@@ -82,6 +89,11 @@ export class RolsListComponent {
                 this.liCreate = false;
                 this.liEdit = false;
                 this.liDelete = false;
+
+                //checkbox schedule
+                this.scheView = false;
+                this.scheCreate = false;
+            
     //
 
    }
@@ -91,10 +103,15 @@ export class RolsListComponent {
             console.log(id);
             
         this.http.delete('http://localhost:3000/role/delete/'+id+'?access_token='+this.userSession.token).toPromise().then(result=>{
-                this.loadRols();
+                let apiResult = result.json();
+                this.rolsData = apiResult.update;
                 this.toast = true;
                 this.message ="Rol borrado";
         })
+    }
+idAssign(id){
+            console.log(id);
+            
     }
     loadRols(){
 
@@ -146,6 +163,8 @@ export class RolsListComponent {
                 this.grant.business.add   == true ? this.buCreate = true: this.buCreate = false; 
                 this.grant.business.edit  == true ? this.buEdit = true:this.buEdit = false;
                 this.grant.business.delete  == true ? this.buDelete = true:this.buDelete = false; 
+                this.grant.business.addSchedule  == true ? this.scheCreate = true:this.scheCreate = false
+                this.grant.business.viewSchedule  == true ? this.scheView = true:this.scheView = false; 
 
 
              }
@@ -183,47 +202,39 @@ export class RolsListComponent {
             
     }
     sendPermission(id){
-         let request ={
-             grant:{
-                user:{
-                    list: this.userList,
-                    add: this.userCreate,
-                    delete: this.userDelete,
-                    edit:this.userEdit
-                    
-                },
-                business:{
-                    list: this.buList,
-                   
-                    add: this.buCreate,
-                    delete: this.buDelete,
-                    edit: this.buEdit
-                    
-                },
-                role:{
-                    list: this.rolList,
-                  
-                    add: this.rolCreate,
-                    delete: this.rolDelete,
-                    edit: this.rolEdit,
-                    addgrant : this.rolGrantView,
-                    viewgrant : this.rolGrantAdd,
-                    
-                },
-                 license:{
-                    list: this.liList,
-                  
-                    add: this.liCreate,
-                    delete: this.liDelete,
-                    edit: this.liEdit,
-              
-                    
-                }
 
+        let requestTwo={user:{},business:{},role:{},license:{}};
 
+        this.userList?requestTwo.user['list'] = true:null;
+        this.userCreate?requestTwo.user['add'] = true:null;
+        this.userEdit?requestTwo.user['edit'] = true:null;
+        this.userDelete?requestTwo.user['delete'] = true:null;
 
-            }
-         }
+        this.rolList?requestTwo.role['list'] = true:null;
+        this.rolCreate?requestTwo.role['add'] = true:null;
+        this.rolEdit?requestTwo.role['edit'] = true:null;
+        this.rolDelete?requestTwo.role['delete'] = true:null;
+        this.rolGrantAdd?requestTwo.role['addgrant'] = true:null;
+        this.rolGrantView?requestTwo.role['viewgrant'] = true:null;
+
+         this.buList?requestTwo.business['list'] = true:null;
+        this.buCreate?requestTwo.business['add'] = true:null;
+        this.buEdit?requestTwo.business['edit'] = true:null;
+        this.buDelete?requestTwo.business['delete'] = true:null;
+        this.scheCreate?requestTwo.business['addSchedule'] = true:null;
+        this.scheView?requestTwo.business['viewSchedule'] = true:null;
+
+        this.liList?requestTwo.license['list'] = true:null;
+        this.liCreate?requestTwo.license['add'] = true:null;
+        this.liEdit?requestTwo.license['edit'] = true:null;
+        this.liDelete?requestTwo.license['delete'] = true:null;
+     
+
+        console.log(requestTwo);
+        
+        let request ={
+            grant: requestTwo
+        }
         this.http.post('http://localhost:3000/role/addgrant/'+id+'?access_token='+this.userSession.token,request).toPromise().then(result=>{
                 //first controller
                 console.log(result.json());
