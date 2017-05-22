@@ -18,6 +18,12 @@
                     <strong>Verificar campos en rojo</strong>
                   
                 </div>
+                    <div *ngIf="permission" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{message}}</strong> 
+                </div>
                 <div class="row">
                     <div *ngFor="let step of steps; let last = last" class="col-md-3 col-sm-6 col-12 step" [class.active]="step.active" [class.valid]="step.valid" [ngClass]="{'last' : last }">
                         <div class="step-icon">

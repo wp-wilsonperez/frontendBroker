@@ -104,7 +104,7 @@ export class BussinessListComponent {
 
         this.bId = user._id;
         console.log(this.bId);
-        this.bussinessForm.setValue({name: user.name,ruc: user.ruc,userMaster:user.userMaster ,phone: user.phone,movil:user.movil,mail:user.mail,password:user.password,address:'',description:'',constitutionDate:'',parking:'',numberEmp:user.numberEmp,web:''});
+        this.bussinessForm.setValue({name: user.name,ruc: user.ruc,userMaster:user.userMaster ,phone: user.phone,movil:user.movil,mail:user.mail,password:user.password,address:user.address,description:user.description,constitutionDate:user.constitutionDate,parking:user.parking,numberEmp:user.numberEmp,web:user.web});
     
         
         
