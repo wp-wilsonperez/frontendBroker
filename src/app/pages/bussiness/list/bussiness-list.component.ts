@@ -31,6 +31,7 @@ export class BussinessListComponent {
     public days:any;
     public userSession:any;
     public modalError:any;
+  
 
     constructor(private bussinessService:BussinessService,private formBuilder: FormBuilder,public http:Http,public local:UserSessionService){
         this.userSession = this.local.getUser();
@@ -75,7 +76,7 @@ export class BussinessListComponent {
     borrar(id){
 
 
-       this.bussinessService.delete(id).then(result=>{
+       this.bussinessService.delete(this.bussinessId).then(result=>{
             let apiResult = result;
             if(apiResult.msg == "OK"){
                    this.usersData = apiResult.update;
@@ -192,5 +193,8 @@ export class BussinessListComponent {
                 this.loadUsers();
                 
         })
+    }
+    asignId(id){
+            this.bussinessId = id;
     }
 }
